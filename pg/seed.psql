@@ -21,6 +21,39 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: flashcards; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.flashcards (
+    id integer NOT NULL,
+    front_of_card text NOT NULL,
+    back_of_card text NOT NULL,
+    is_learnt boolean NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+--
+-- Name: flashcards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.flashcards_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: flashcards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.flashcards_id_seq OWNED BY public.flashcards.id;
+
+
+--
 -- Name: tasks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -80,10 +113,28 @@ ALTER TABLE public.users ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
+-- Name: flashcards id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.flashcards ALTER COLUMN id SET DEFAULT nextval('public.flashcards_id_seq'::regclass);
+
+
+--
 -- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+
+
+--
+-- Data for Name: flashcards; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.flashcards (id, front_of_card, back_of_card, is_learnt, user_id) FROM stdin;
+1	anomaly	something that is unusual	f	2
+2	equivocal	not easily understood or explained	f	2
+3	lucid	very clear and easy to understand	f	2
+\.
 
 
 --
@@ -96,6 +147,7 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 3	End white supremacy	1
 4	Advocate for living wage	1
 5	Provide universal health care	1
+7	drink water	2
 \.
 
 
@@ -105,21 +157,38 @@ COPY public.tasks (id, name, user_id) FROM stdin;
 
 COPY public.users (id, given_name, family_name, picture, email, sub) FROM stdin;
 1	George	Song	https://lh3.googleusercontent.com/a-/AOh14GisMQBkZ6bxLA6L0p7EBnaPny8aK52UKRI2_tQIaw=s96-c	george@damacy.net	google-oauth2|111226858800048009044
+3		Malikasenova@gmail.com	https://s.gravatar.com/avatar/2114ffde2a69bcf01cca8789678ee890?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fma.png	malikasenova@gmail.com	auth0|616dbf0302b3dd0071cafdde
+2	Malika	K	https://lh3.googleusercontent.com/a-/AOh14Gh9iAVTzzpCwRzJJ4ZBscnnDeYGd2jxMdhghrkzSQ=s96-c	malikasenova@gmail.com	google-oauth2|111768900954303626605
 \.
+
+
+--
+-- Name: flashcards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.flashcards_id_seq', 3, true);
 
 
 --
 -- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.tasks_id_seq', 6, true);
+SELECT pg_catalog.setval('public.tasks_id_seq', 7, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 5, true);
+
+
+--
+-- Name: flashcards flashcards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.flashcards
+    ADD CONSTRAINT flashcards_pkey PRIMARY KEY (id);
 
 
 --
