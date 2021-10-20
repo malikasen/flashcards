@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
+import Flashcards from "../Flashcards";
 import Nav from "../Nav";
 import Tasks from "../Tasks";
 import useApi from "../auth/useApi";
@@ -47,7 +48,7 @@ const Home = () => {
         <h1>{process.env.REACT_APP_TITLE}</h1>
         <p>{process.env.REACT_APP_SUBTITLE}</p>
       </header>
-      {isAuthenticated ? <Tasks /> : null}
+      {isAuthenticated ? <Flashcards /> : null}
     </>
   );
 };
