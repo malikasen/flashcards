@@ -5,6 +5,7 @@ import useAuth0 from "./useAuth0";
 const makeApi = (accessToken) => {
   const actions = {
     getTasks: () => _get("/api/tasks"),
+    getFlashcards: () => _get("/api/flashcards"),
     addTask: (name) => _post("/api/tasks", { name }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
   };

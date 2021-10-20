@@ -2,6 +2,8 @@ import * as React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
+import Flashcards from "../Flashcards";
+import Flashcard from "../Flashcards/Flashcard";
 import Nav from "../Nav";
 import Tasks from "../Tasks";
 import useApi from "../auth/useApi";
@@ -29,8 +31,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/dashboard"
-            element={<Protected component={Dashboard} />}
+            path="/practice"
+            element={<Protected component={Practice} />}
           />
         </Routes>
       </main>
@@ -47,11 +49,18 @@ const Home = () => {
         <h1>{process.env.REACT_APP_TITLE}</h1>
         <p>{process.env.REACT_APP_SUBTITLE}</p>
       </header>
-      {isAuthenticated ? <Tasks /> : null}
+      {isAuthenticated ? <Flashcards /> : null}
     </>
   );
 };
 
-const Dashboard = () => <h1>Dashboard</h1>;
+const Practice = () => {
+  const { isAuthenticated } = useAuth0();
 
+  return (
+    <>
+      <p>Front of the card</p>
+    </>
+  );
+};
 export default App;
