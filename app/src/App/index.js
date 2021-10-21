@@ -1,6 +1,10 @@
 import * as React from "react";
 import { useState, useCallback } from "react";
 
+import { ArrowBackIosSharp as ArrowBackIosSharp } from "@material-ui/icons";
+import { ArrowForwardIosSharp as ArrowForwardIosSharp } from "@material-ui/icons";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 import { Routes, Route } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
@@ -104,8 +108,22 @@ const Practice = ({ flashcards }) => {
           toggleSide={toggleSide}
         />
       )}
-      <button onClick={incrementCard}>Previous</button>
-      <button onClick={decrementCard}>Next</button>
+      <Stack direction="row" spacing={2} className={styles.stack}>
+        <Button
+          variant="contained"
+          startIcon={<ArrowBackIosSharp />}
+          onClick={incrementCard}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<ArrowForwardIosSharp />}
+          onClick={decrementCard}
+        >
+          Next
+        </Button>
+      </Stack>
     </>
   );
 };
