@@ -1,11 +1,11 @@
 import * as React from "react";
+import { useState, useCallback } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
-import Flashcard from "../Flashcards/Flashcard";
+import Side from "../Flashcards/Side";
 import Nav from "../Nav";
-import Tasks from "../Tasks";
 import useApi from "../auth/useApi";
 import useAuth0 from "../auth/useAuth0";
 import { Protected } from "../auth/widgets";
@@ -21,7 +21,16 @@ const App = () => {
       apiClient.addOrUpdateUser(user);
     }
   }, [isAuthenticated, user, loading, apiClient]);
+  const [flashcards, setFlashcards] = useState([{}]);
 
+  const loadFlashcards = React.useCallback(
+    async () => setFlashcards(await apiClient.getFlashcards()),
+    [apiClient],
+  );
+
+  React.useEffect(() => {
+    !loading && loadFlashcards();
+  }, [loading, loadFlashcards]);
   return (
     <>
       <header>
@@ -29,10 +38,13 @@ const App = () => {
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Home loading={loading} flashcards={flashcards} />}
+          />
           <Route
             path="/practice"
-            element={<Protected component={Practice} />}
+            element={<Protected component={Practice} flashcards={flashcards} />}
           />
         </Routes>
       </main>
@@ -40,7 +52,7 @@ const App = () => {
   );
 };
 
-const Home = () => {
+const Home = ({ flashcards, loading }) => {
   const { isAuthenticated } = useAuth0();
 
   return (
@@ -49,17 +61,51 @@ const Home = () => {
         <h1>{process.env.REACT_APP_TITLE}</h1>
         <p>{process.env.REACT_APP_SUBTITLE}</p>
       </header>
-      {isAuthenticated ? <Flashcards /> : null}
+      {isAuthenticated && !loading ? (
+        <Flashcards flashcards={flashcards} />
+      ) : null}
     </>
   );
 };
 
-const Practice = () => {
-  const { isAuthenticated } = useAuth0();
+const Practice = ({ flashcards }) => {
+  console.log("flashcards", flashcards);
+  const [cardNumber, setCardNumber] = useState(0);
+  const [showFront, setShowFront] = useState(true);
+  const toggleSide = useCallback(() => {
+    setShowFront(!showFront);
+  }, [showFront]);
+  const incrementCard = useCallback(() => {
+    if (cardNumber === flashcards.length - 1) {
+      setCardNumber(0);
+    } else {
+      setCardNumber(cardNumber + 1);
+    }
+  }, [cardNumber]);
+  const decrementCard = useCallback(() => {
+    if (cardNumber === 0) {
+      setCardNumber(flashcards.length - 1);
+    } else {
+      setCardNumber(cardNumber - 1);
+    }
+  }, [cardNumber]);
 
   return (
     <>
-      <p>Front of the card</p>
+      {showFront && (
+        <Side
+          text={flashcards[cardNumber].front_of_card}
+          toggleSide={toggleSide}
+        />
+      )}
+      {!showFront && (
+        <Side
+          text={flashcards[cardNumber].back_of_card}
+          toggleSide={toggleSide}
+        />
+      )}
+      <button onClick={incrementCard}>Previous</button>
+      <button onClick={decrementCard}>Next</button>
     </>
   );
 };
