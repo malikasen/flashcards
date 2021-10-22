@@ -10,7 +10,8 @@ const Nav = () => (
     <NavLink to="/" end>
       Home
     </NavLink>{" "}
-    | <NavLink to="practice">Practice</NavLink> | <Auth />
+    <NavLink to="practice">Practice</NavLink>
+    <Auth />
   </nav>
 );
 
@@ -20,7 +21,7 @@ const Auth = () => {
   return isAuthenticated ? (
     <>
       <img src={user.picture} alt="" />
-      Hello, {user.given_name} <Logout />
+      <Logout />
     </>
   ) : (
     <Login />

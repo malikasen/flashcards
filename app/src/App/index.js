@@ -1,6 +1,10 @@
 import * as React from "react";
 import { useState, useCallback } from "react";
 
+import { ArrowBackIosSharp as ArrowBackIosSharp } from "@material-ui/icons";
+import { ArrowForwardIosSharp as ArrowForwardIosSharp } from "@material-ui/icons";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 import { Routes, Route } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
@@ -53,30 +57,34 @@ const App = () => {
 };
 
 const Home = ({ flashcards, loading }) => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
 
   return (
-    <>
+    <div>
       <header className={styles.header}>
         <h1>{process.env.REACT_APP_TITLE}</h1>
-        <p>{process.env.REACT_APP_SUBTITLE}</p>
       </header>
       {isAuthenticated && !loading ? (
-        <Flashcards flashcards={flashcards} />
+        <div>
+          <h2>Hello, {user.given_name}</h2>
+          <Flashcards flashcards={flashcards} />
+        </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
 const Practice = ({ flashcards }) => {
   console.log("flashcards", flashcards);
+  const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
+  console.log("cardsToPractice", cardsToPractice);
   const [cardNumber, setCardNumber] = useState(0);
   const [showFront, setShowFront] = useState(true);
   const toggleSide = useCallback(() => {
     setShowFront(!showFront);
   }, [showFront]);
   const incrementCard = useCallback(() => {
-    if (cardNumber === flashcards.length - 1) {
+    if (cardNumber === cardsToPractice.length - 1) {
       setCardNumber(0);
     } else {
       setCardNumber(cardNumber + 1);
@@ -84,7 +92,7 @@ const Practice = ({ flashcards }) => {
   }, [cardNumber]);
   const decrementCard = useCallback(() => {
     if (cardNumber === 0) {
-      setCardNumber(flashcards.length - 1);
+      setCardNumber(cardsToPractice.length - 1);
     } else {
       setCardNumber(cardNumber - 1);
     }
@@ -94,18 +102,52 @@ const Practice = ({ flashcards }) => {
     <>
       {showFront && (
         <Side
-          text={flashcards[cardNumber].front_of_card}
+          text={cardsToPractice[cardNumber].front_of_card}
           toggleSide={toggleSide}
         />
       )}
       {!showFront && (
         <Side
-          text={flashcards[cardNumber].back_of_card}
+          text={cardsToPractice[cardNumber].back_of_card}
           toggleSide={toggleSide}
         />
       )}
-      <button onClick={incrementCard}>Previous</button>
-      <button onClick={decrementCard}>Next</button>
+      <Stack direction="row" spacing={2} className={styles.stack}>
+        <Button
+          variant="contained"
+          startIcon={<ArrowBackIosSharp />}
+          className={styles.slideButton}
+          onClick={incrementCard}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<ArrowForwardIosSharp />}
+          className={styles.slideButton}
+          onClick={decrementCard}
+        >
+          Next
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} className={styles.stack}>
+        <Button
+          variant="contained"
+          className={styles.slideButton}
+          id={styles.masteredBtn}
+          // onClick={mastered}
+        >
+          Mastered
+        </Button>
+        <Button
+          variant="contained"
+          className={styles.slideButton}
+          id={styles.practiceMoreBtn}
+          // onClick={practiceMore}
+        >
+          Practice more
+        </Button>
+      </Stack>
     </>
   );
 };
