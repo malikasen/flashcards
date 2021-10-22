@@ -9,6 +9,13 @@
   justify-content: center;
 }
 .slideButton {
-  min-width: 125px !important;
+  min-width: 175px !important;
   min-height: 35px !important;
+  margin-bottom: 20px !important;
+}
+#masteredBtn {
+  background-color: rgb(3, 202, 3);
+}
+#practiceMoreBtn {
+  background-color: rgb(228, 8, 0);
 }

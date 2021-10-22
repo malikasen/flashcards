@@ -116,7 +116,7 @@ const Practice = ({ flashcards }) => {
           variant="contained"
           startIcon={<ArrowBackIosSharp />}
           className={styles.slideButton}
-          onClick={incrementCard}
+          // onClick={incrementCard}
         >
           Previous
         </Button>
@@ -127,6 +127,24 @@ const Practice = ({ flashcards }) => {
           onClick={decrementCard}
         >
           Next
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} className={styles.stack}>
+        <Button
+          variant="contained"
+          className={styles.slideButton}
+          id={styles.masteredBtn}
+          // onClick={mastered}
+        >
+          Mastered
+        </Button>
+        <Button
+          variant="contained"
+          className={styles.slideButton}
+          id={styles.practiceMoreBtn}
+          // onClick={practiceMore}
+        >
+          Practice more
         </Button>
       </Stack>
     </>
