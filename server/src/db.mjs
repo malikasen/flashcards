@@ -25,6 +25,14 @@ export const addTask = (sub, name) =>
     { sub, name },
   );
 
+export const editIsLearnt = (cardId) => 
+    db.one(
+      `UPDATE flashcards
+        SET is_learnt = true
+        WHERE id = cardID`,
+      { cardId },
+    );
+
 export const addOrUpdateUser = (user) =>
   db.one(
     `INSERT INTO users(given_name, family_name, picture, email, sub)
