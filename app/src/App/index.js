@@ -57,18 +57,21 @@ const App = () => {
 };
 
 const Home = ({ flashcards, loading }) => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
 
   return (
-    <>
+    <div>
       <header className={styles.header}>
         <h1>{process.env.REACT_APP_TITLE}</h1>
         <p>{process.env.REACT_APP_SUBTITLE}</p>
       </header>
       {isAuthenticated && !loading ? (
-        <Flashcards flashcards={flashcards} />
+        <div>
+          <h2>Hello, {user.given_name}</h2>
+          <Flashcards flashcards={flashcards} />
+        </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
@@ -112,6 +115,7 @@ const Practice = ({ flashcards }) => {
         <Button
           variant="contained"
           startIcon={<ArrowBackIosSharp />}
+          className={styles.slideButton}
           onClick={incrementCard}
         >
           Previous
@@ -119,6 +123,7 @@ const Practice = ({ flashcards }) => {
         <Button
           variant="contained"
           endIcon={<ArrowForwardIosSharp />}
+          className={styles.slideButton}
           onClick={decrementCard}
         >
           Next

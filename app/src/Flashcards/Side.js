@@ -8,7 +8,12 @@ import styles from "./styles.module.scss";
 const Side = ({ text, toggleSide }) => {
   return (
     <Stack spacing={2} direction="row" className={styles.stack}>
-      <Button variant="outlined" size="large" onClick={toggleSide}>
+      <Button
+        variant="outlined"
+        size="large"
+        className={styles.side}
+        onClick={toggleSide}
+      >
         {text}
       </Button>
     </Stack>
