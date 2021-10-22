@@ -48,7 +48,13 @@ const App = () => {
           />
           <Route
             path="/practice"
-            element={<Protected component={Practice} flashcards={flashcards} />}
+            element={
+              <Protected
+                component={Practice}
+                flashcards={flashcards}
+                apiClient={apiClient}
+              />
+            }
           />
         </Routes>
       </main>
@@ -74,7 +80,7 @@ const Home = ({ flashcards, loading }) => {
   );
 };
 
-const Practice = ({ flashcards }) => {
+const Practice = ({ flashcards, apiClient }) => {
   console.log("flashcards", flashcards);
   const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
   console.log("cardsToPractice", cardsToPractice);
@@ -97,6 +103,10 @@ const Practice = ({ flashcards }) => {
       setCardNumber(cardNumber - 1);
     }
   }, [cardNumber]);
+  const editIsLearnt = (cardId) => {
+    console.log("edit function called in index.js");
+    apiClient.editIsLearnt(cardId);
+  };
 
   return (
     <>
@@ -135,7 +145,7 @@ const Practice = ({ flashcards }) => {
           variant="contained"
           className={styles.slideButton}
           id={styles.masteredBtn}
-          // onClick={mastered}
+          onClick={editIsLearnt(cardsToPractice[cardNumber].id)}
         >
           Mastered
         </Button>
