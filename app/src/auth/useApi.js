@@ -8,7 +8,9 @@ const makeApi = (accessToken) => {
     getFlashcards: () => _get("/api/flashcards"),
     addTask: (name) => _post("/api/tasks", { name }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
-    editIsLearnt: (cardId) => _put("/api/flashcards", { cardId }),
+    editIsLearnt: (card) => {
+      return _put(`/api/flashcards/${card.id}`, { card });
+    },
   };
 
   const _get = async (url) => (await _fetch(url)).json();

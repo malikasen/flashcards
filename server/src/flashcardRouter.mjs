@@ -9,7 +9,7 @@ router.get("/", async (request, response) => {
   response.json(flashcards);
 });
 router.put("/:cardId", async (request, response) => {
-  const updatedFlashcard = await db.editIsLearnt(request.body);
+  const updatedFlashcard = await db.editIsLearnt(request.params.cardId);
   response.status(201).json(updatedFlashcard);
 })
 

@@ -28,8 +28,9 @@ export const addTask = (sub, name) =>
 export const editIsLearnt = (cardId) => 
     db.one(
       `UPDATE flashcards
-        SET is_learnt = true
-        WHERE id = cardID`,
+        SET is_learnt=true
+        WHERE id=$<cardId>
+        RETURNING *`,
       { cardId },
     );
 

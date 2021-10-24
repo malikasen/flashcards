@@ -81,9 +81,7 @@ const Home = ({ flashcards, loading }) => {
 };
 
 const Practice = ({ flashcards, apiClient }) => {
-  console.log("flashcards", flashcards);
   const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
-  console.log("cardsToPractice", cardsToPractice);
   const [cardNumber, setCardNumber] = useState(0);
   const [showFront, setShowFront] = useState(true);
   const toggleSide = useCallback(() => {
@@ -103,9 +101,8 @@ const Practice = ({ flashcards, apiClient }) => {
       setCardNumber(cardNumber - 1);
     }
   }, [cardNumber]);
-  const editIsLearnt = (cardId) => {
-    console.log("edit function called in index.js");
-    apiClient.editIsLearnt(cardId);
+  const editIsLearnt = () => {
+    apiClient.editIsLearnt(cardsToPractice[cardNumber]);
   };
 
   return (
@@ -145,7 +142,9 @@ const Practice = ({ flashcards, apiClient }) => {
           variant="contained"
           className={styles.slideButton}
           id={styles.masteredBtn}
-          onClick={editIsLearnt(cardsToPractice[cardNumber].id)}
+          onClick={() => {
+            return editIsLearnt();
+          }}
         >
           Mastered
         </Button>
