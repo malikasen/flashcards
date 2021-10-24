@@ -56,6 +56,10 @@ const App = () => {
               />
             }
           />
+          <Route
+            path="/create-edit-card"
+            element={<Protected component={CreateEdit} />}
+          />
         </Routes>
       </main>
     </>
@@ -159,5 +163,9 @@ const Practice = ({ flashcards, apiClient }) => {
       </Stack>
     </>
   );
+};
+
+const CreateEdit = () => {
+  return <div>Create/Edit page</div>;
 };
 export default App;

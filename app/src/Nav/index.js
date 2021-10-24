@@ -11,6 +11,7 @@ const Nav = () => (
       Home
     </NavLink>{" "}
     <NavLink to="practice">Practice</NavLink>
+    <NavLink to="create-edit-card">New card</NavLink>
     <Auth />
   </nav>
 );
