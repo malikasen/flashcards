@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import { Routes, Route } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
+import EmptySides from "../Flashcards/EmptySides";
 import Side from "../Flashcards/Side";
 import Nav from "../Nav";
 import useApi from "../auth/useApi";
@@ -166,6 +167,6 @@ const Practice = ({ flashcards, apiClient }) => {
 };
 
 const CreateEdit = () => {
-  return <div>Create/Edit page</div>;
+  return <EmptySides />;
 };
 export default App;
