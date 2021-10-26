@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import { Routes, Route } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
+import EmptySides from "../Flashcards/EmptySides";
 import Side from "../Flashcards/Side";
 import Nav from "../Nav";
 import useApi from "../auth/useApi";
@@ -48,7 +49,17 @@ const App = () => {
           />
           <Route
             path="/practice"
-            element={<Protected component={Practice} flashcards={flashcards} />}
+            element={
+              <Protected
+                component={Practice}
+                flashcards={flashcards}
+                apiClient={apiClient}
+              />
+            }
+          />
+          <Route
+            path="/create-edit-card"
+            element={<Protected component={CreateEdit} />}
           />
         </Routes>
       </main>
@@ -74,10 +85,8 @@ const Home = ({ flashcards, loading }) => {
   );
 };
 
-const Practice = ({ flashcards }) => {
-  console.log("flashcards", flashcards);
+const Practice = ({ flashcards, apiClient }) => {
   const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
-  console.log("cardsToPractice", cardsToPractice);
   const [cardNumber, setCardNumber] = useState(0);
   const [showFront, setShowFront] = useState(true);
   const toggleSide = useCallback(() => {
@@ -97,6 +106,9 @@ const Practice = ({ flashcards }) => {
       setCardNumber(cardNumber - 1);
     }
   }, [cardNumber]);
+  const editIsLearnt = () => {
+    apiClient.editIsLearnt(cardsToPractice[cardNumber]);
+  };
 
   return (
     <>
@@ -135,7 +147,9 @@ const Practice = ({ flashcards }) => {
           variant="contained"
           className={styles.slideButton}
           id={styles.masteredBtn}
-          // onClick={mastered}
+          onClick={() => {
+            return editIsLearnt();
+          }}
         >
           Mastered
         </Button>
@@ -150,5 +164,9 @@ const Practice = ({ flashcards }) => {
       </Stack>
     </>
   );
+};
+
+const CreateEdit = () => {
+  return <EmptySides />;
 };
 export default App;

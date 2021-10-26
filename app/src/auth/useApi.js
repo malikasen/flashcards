@@ -8,6 +8,9 @@ const makeApi = (accessToken) => {
     getFlashcards: () => _get("/api/flashcards"),
     addTask: (name) => _post("/api/tasks", { name }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
+    editIsLearnt: (card) => {
+      return _put(`/api/flashcards/${card.id}`, { card });
+    },
   };
 
   const _get = async (url) => (await _fetch(url)).json();
@@ -15,6 +18,19 @@ const makeApi = (accessToken) => {
   const _post = async (url, body) => {
     const response = await _fetch(url, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    let result;
+    try {
+      result = await response.json();
+    } catch {}
+    return result;
+  };
+
+  const _put = async (url, body) => {
+    const response = await _fetch(url, {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
