@@ -13,8 +13,9 @@ const makeApi = (accessToken) => {
       return _put(`/api/flashcards/${card.id}`, { card });
     },
     addFlashcard: (front, back) => _post("api/flashcards", { front, back }),
-    deleteFlashcard: (card) => {
-      return _delete(`/api/flashcards/${card.id}`, { card });
+    deleteFlashcard: (id) => {
+      console.log("delete in apiClient");
+      return _delete(`/api/flashcards/${id}`, { id });
     },
   };
 

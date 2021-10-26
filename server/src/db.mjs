@@ -40,21 +40,21 @@ export const addFlashcard = (sub, params) =>
   );
 
 export const editIsLearnt = (cardId) => 
-    db.one(
-      `UPDATE flashcards
-        SET is_learnt=true
-        WHERE id=$<cardId>
-        RETURNING *`,
-      { cardId },
-    );
+  db.one(
+    `UPDATE flashcards
+      SET is_learnt=true
+      WHERE id=$<cardId>
+      RETURNING *`,
+    { cardId },
+  );
 
 export const deleteFlashcard = (cardId) =>
-      db.one(
-        `DELETE FROM flashcards
-          WHERE id=$<cardId>
-          RETURNING *`,
-        { cardId },
-      );
+  db.one(
+    `DELETE FROM flashcards
+      WHERE id=$<cardId>
+      RETURNING *`,
+    { cardId },
+  );
 
 export const addOrUpdateUser = (user) =>
   db.one(

@@ -174,10 +174,7 @@ const EditCard = () => {
   const { loading, apiClient } = useApi();
   const { cardId } = useParams();
   const [card, setCard] = useState({});
-  // useEffect(async () => {
-  //   const cardResponse = await apiClient.getCard(cardId);
-  //   setCard(cardResponse);
-  // }, [card.id, apiClient]);
+
   const loadFlashcard = React.useCallback(
     async () => setCard(await apiClient.getCard(cardId)),
     [apiClient],
@@ -186,17 +183,18 @@ const EditCard = () => {
     !loading && loadFlashcard();
   }, [loading, loadFlashcard]);
   if (!card.id) {
-    console.log("no card");
+    // console.log("no card");
     return (
       <>
         <EmptySides />
       </>
     );
   }
-  console.log("card", card);
+  // console.log("card", card);
   return (
     <>
       <EmptySides
+        cardId={card.id}
         front_of_card={card.front_of_card}
         back_of_card={card.back_of_card}
       />

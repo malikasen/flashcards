@@ -24,8 +24,9 @@ router.put("/:cardId", async (request, response) => {
   const updatedFlashcard = await db.editIsLearnt(request.params.cardId);
   response.status(201).json(updatedFlashcard);
 });
-router.delete("/:cardId", async (request, response) => {
-  const updatedFlashcard = await db.deleteFlashcard(request.params.cardId);
+router.delete("/:id", async (request, response) => {
+  console.log(request);
+  const updatedFlashcard = await db.deleteFlashcard(request.params.id);
   response.status(201).json(updatedFlashcard);
 });
 
