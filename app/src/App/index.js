@@ -26,7 +26,7 @@ const App = () => {
       apiClient.addOrUpdateUser(user);
     }
   }, [isAuthenticated, user, loading, apiClient]);
-  const [flashcards, setFlashcards] = useState([{}]);
+  const [flashcards, setFlashcards] = useState([]);
 
   const loadFlashcards = React.useCallback(
     async () => setFlashcards(await apiClient.getFlashcards()),
@@ -50,11 +50,13 @@ const App = () => {
           <Route
             path="/practice"
             element={
-              <Protected
-                component={Practice}
-                flashcards={flashcards}
-                apiClient={apiClient}
-              />
+              flashcards.length && (
+                <Protected
+                  component={Practice}
+                  flashcards={flashcards}
+                  apiClient={apiClient}
+                />
+              )
             }
           />
           <Route
@@ -113,7 +115,9 @@ const Practice = ({ flashcards, apiClient }) => {
   const editIsLearnt = () => {
     apiClient.editIsLearnt(cardsToPractice[cardNumber]);
   };
-
+  console.log(cardsToPractice);
+  console.log("flashcards", flashcards);
+  console.log(cardNumber);
   return (
     <>
       {showFront && (

@@ -21,11 +21,15 @@ const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
     setFront(front_of_card);
     setBack(back_of_card);
   }, [cardId, front_of_card, back_of_card]);
-  // console.log("front", front_of_card);
-  // console.log("back", back_of_card);
   const deleteCard = () => {
     console.log("delete in the component");
     return apiClient.deleteFlashcard(id);
+  };
+  const saveCard = () => {
+    return apiClient.saveFlashcard(id, front, back);
+  };
+  const saveAndAddCard = () => {
+    return apiClient.saveAndAddFlashcard(id, front, back);
   };
   return (
     <>
@@ -38,10 +42,18 @@ const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
           >
             Delete
           </Button>
-          <Button variant="outlined" startIcon={<SaveAltIcon />}>
+          <Button
+            variant="outlined"
+            startIcon={<SaveAltIcon />}
+            onClick={saveCard}
+          >
             Save
           </Button>
-          <Button variant="outlined" startIcon={<AddToPhotosIcon />}>
+          <Button
+            variant="outlined"
+            startIcon={<AddToPhotosIcon />}
+            onClick={saveAndAddCard}
+          >
             Save and add more
           </Button>
         </Stack>
