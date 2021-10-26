@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+// import { useNavigate } from "react-router-dom";
 
 import useApi from "../auth/useApi";
 
@@ -16,14 +17,16 @@ const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
   const [front, setFront] = useState();
   const [back, setBack] = useState();
   const [id, setId] = useState();
+  // const navigate = useNavigate();
   useEffect(() => {
     setId(cardId);
     setFront(front_of_card);
     setBack(back_of_card);
   }, [cardId, front_of_card, back_of_card]);
-  const deleteCard = () => {
-    console.log("delete in the component");
-    return apiClient.deleteFlashcard(id);
+  const deleteCard = async () => {
+    await apiClient.deleteFlashcard(id);
+    // navigate("/");
+    window.location.href = "/";
   };
   const saveCard = () => {
     return apiClient.saveFlashcard(id, front, back);

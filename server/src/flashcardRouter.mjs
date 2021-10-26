@@ -22,12 +22,12 @@ router.post("/", async (request, response) => {
 });
 router.put("/:cardId", async (request, response) => {
   const updatedFlashcard = await db.editIsLearnt(request.params.cardId);
-  response.status(201).json(updatedFlashcard);
+  response.status(200).json(updatedFlashcard);
 });
 router.delete("/:id", async (request, response) => {
   console.log(request);
   const updatedFlashcard = await db.deleteFlashcard(request.params.id);
-  response.status(201).json(updatedFlashcard);
+  response.status(200).json(updatedFlashcard);
 });
 
 router.use(express.json());
