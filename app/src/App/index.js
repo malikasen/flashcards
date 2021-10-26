@@ -1,14 +1,13 @@
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import { ArrowBackIosSharp as ArrowBackIosSharp } from "@material-ui/icons";
 import { ArrowForwardIosSharp as ArrowForwardIosSharp } from "@material-ui/icons";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
-import EditButtons from "../Flashcards/EditButtons";
 import EmptySides from "../Flashcards/EmptySides";
 import Side from "../Flashcards/Side";
 import Nav from "../Nav";
@@ -59,8 +58,12 @@ const App = () => {
             }
           />
           <Route
-            path="/create-edit-card"
-            element={<Protected component={CreateEdit} />}
+            path="/new-card"
+            element={<Protected component={CreateCard} apiClient={apiClient} />}
+          />
+          <Route
+            path="/edit-card/:cardId"
+            element={<Protected component={EditCard} />}
           />
         </Routes>
       </main>
@@ -167,10 +170,43 @@ const Practice = ({ flashcards, apiClient }) => {
   );
 };
 
-const CreateEdit = () => {
+const EditCard = () => {
+  const { loading, apiClient } = useApi();
+  const { cardId } = useParams();
+  const [card, setCard] = useState({});
+  // useEffect(async () => {
+  //   const cardResponse = await apiClient.getCard(cardId);
+  //   setCard(cardResponse);
+  // }, [card.id, apiClient]);
+  const loadFlashcard = React.useCallback(
+    async () => setCard(await apiClient.getCard(cardId)),
+    [apiClient],
+  );
+  React.useEffect(() => {
+    !loading && loadFlashcard();
+  }, [loading, loadFlashcard]);
+  if (!card.id) {
+    console.log("no card");
+    return (
+      <>
+        <EmptySides />
+      </>
+    );
+  }
+  console.log("card", card);
   return (
     <>
-      <EditButtons />
+      <EmptySides
+        front_of_card={card.front_of_card}
+        back_of_card={card.back_of_card}
+      />
+    </>
+  );
+};
+
+const CreateCard = ({ apiClient }) => {
+  return (
+    <>
       <EmptySides />
     </>
   );

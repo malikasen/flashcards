@@ -17,7 +17,7 @@ const Nav = () => (
           Home
         </NavLink>{" "}
         <NavLink to="practice">Practice</NavLink>
-        <NavLink to="create-edit-card">New card</NavLink>
+        <NavLink to="new-card">New card</NavLink>
       </Grid>
       <Grid item xs={1} className={styles.grid2}>
         <Auth />

@@ -6,10 +6,15 @@ const makeApi = (accessToken) => {
   const actions = {
     getTasks: () => _get("/api/tasks"),
     getFlashcards: () => _get("/api/flashcards"),
+    getCard: (cardId) => _get(`/api/flashcards/${cardId}`),
     addTask: (name) => _post("/api/tasks", { name }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
     editIsLearnt: (card) => {
       return _put(`/api/flashcards/${card.id}`, { card });
+    },
+    addFlashcard: (front, back) => _post("api/flashcards", { front, back }),
+    deleteFlashcard: (card) => {
+      return _delete(`/api/flashcards/${card.id}`, { card });
     },
   };
 
@@ -31,6 +36,19 @@ const makeApi = (accessToken) => {
   const _put = async (url, body) => {
     const response = await _fetch(url, {
       method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    let result;
+    try {
+      result = await response.json();
+    } catch {}
+    return result;
+  };
+
+  const _delete = async (url, body) => {
+    const response = await _fetch(url, {
+      method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
