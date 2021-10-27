@@ -1,10 +1,22 @@
 .nav {
   height: 80px;
   background: #1565c0;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem calc((100vw - 1000px) / 2);
-  z-index: 10;
+
+  .grid0 {
+    color:white;
+  }
+
+  .grid1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem calc((100vw - 1000px) / 2);
+    z-index: 10;
+  }
+
+  .grid2 {
+    display: flex;
+    align-items: flex-end;
+  }
 
   a {
     color:white;

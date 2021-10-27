@@ -1,3 +1,4 @@
+import Grid from "@mui/material/Grid";
 import { NavLink } from "react-router-dom";
 
 import useAuth0 from "../auth/useAuth0";
@@ -7,12 +8,21 @@ import styles from "./styles.module.scss";
 
 const Nav = () => (
   <nav className={styles.nav}>
-    <NavLink to="/" end>
-      Home
-    </NavLink>{" "}
-    <NavLink to="practice">Practice</NavLink>
-    <NavLink to="create-edit-card">New card</NavLink>
-    <Auth />
+    <Grid container>
+      <Grid item xs={1} className={styles.grid0}>
+        <h3>Flashcard Master</h3>
+      </Grid>
+      <Grid item xs={10} className={styles.grid1}>
+        <NavLink to="/" end>
+          Home
+        </NavLink>{" "}
+        <NavLink to="practice">Practice</NavLink>
+        <NavLink to="new-card">New card</NavLink>
+      </Grid>
+      <Grid item xs={1} className={styles.grid2}>
+        <Auth />
+      </Grid>
+    </Grid>
   </nav>
 );
 
