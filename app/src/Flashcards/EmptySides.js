@@ -28,8 +28,14 @@ const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
     // navigate("/");
     window.location.href = "/";
   };
-  const saveCard = () => {
-    return apiClient.saveFlashcard(id, front, back);
+  const saveCard = async () => {
+    const card = {
+      id: id,
+      front: front,
+      back: back,
+    };
+    await apiClient.saveFlashcard(card);
+    window.location.href = "/";
   };
   const saveAndAddCard = () => {
     return apiClient.saveAndAddFlashcard(id, front, back);

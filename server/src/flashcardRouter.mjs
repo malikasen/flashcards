@@ -9,16 +9,27 @@ router.get("/", async (request, response) => {
   response.json(flashcards);
 });
 router.get("/:cardId", async (request, response) => {
-  const flashcard = await db.getFlashcard(request.user.sub, request.params.cardId);
+  const flashcard = await db.getFlashcard(
+    request.user.sub,
+    request.params.cardId,
+  );
   response.json(flashcard);
 });
-router.post("/", async (request, response) => {
-  params = {
+router.put("/", async (request, response) => {
+  const id = request.body.id;
+  const params = {
     front: request.body.front,
     back: request.body.back,
+  };
+  if (id) {
+    console.log("editing", params);
+    const flashcards = await db.addFlashcard(request.user.sub, params);
+    response.json(flashcards);
+  } else {
+    console.log("creating", params);
+    const flashcards = await db.editFlashcard(request.user.sub, params);
+    response.json(flashcards);
   }
-  const flashcards = await db.addFlashcard(request.user.sub, params);
-  response.json(flashcards);
 });
 router.put("/:cardId", async (request, response) => {
   const updatedFlashcard = await db.editIsLearnt(request.params.cardId);

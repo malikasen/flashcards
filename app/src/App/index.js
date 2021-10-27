@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 
-import { ArrowBackIosSharp as ArrowBackIosSharp } from "@material-ui/icons";
-import { ArrowForwardIosSharp as ArrowForwardIosSharp } from "@material-ui/icons";
+import ArrowBackIosSharpIcon from "@mui/icons-material/ArrowBackIosSharp";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { Routes, Route, useParams } from "react-router-dom";
@@ -115,9 +115,6 @@ const Practice = ({ flashcards, apiClient }) => {
   const editIsLearnt = () => {
     apiClient.editIsLearnt(cardsToPractice[cardNumber]);
   };
-  console.log(cardsToPractice);
-  console.log("flashcards", flashcards);
-  console.log(cardNumber);
   return (
     <>
       {showFront && (
@@ -135,7 +132,7 @@ const Practice = ({ flashcards, apiClient }) => {
       <Stack direction="row" spacing={2} className={styles.stack}>
         <Button
           variant="contained"
-          startIcon={<ArrowBackIosSharp />}
+          startIcon={<ArrowBackIosSharpIcon />}
           className={styles.slideButton}
           onClick={incrementCard}
         >
@@ -143,7 +140,7 @@ const Practice = ({ flashcards, apiClient }) => {
         </Button>
         <Button
           variant="contained"
-          endIcon={<ArrowForwardIosSharp />}
+          endIcon={<ArrowForwardIosSharpIcon />}
           className={styles.slideButton}
           onClick={decrementCard}
         >
