@@ -9,6 +9,7 @@ import { Routes, Route, useParams } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
 import EmptySides from "../Flashcards/EmptySides";
+import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
 import Nav from "../Nav";
 import useApi from "../auth/useApi";
@@ -67,6 +68,10 @@ const App = () => {
             path="/edit-card/:cardId"
             element={<Protected component={EditCard} />}
           />
+          <Route
+            path="/result"
+            element={<Protected component={Result} flashcards={flashcards} />}
+          />
         </Routes>
       </main>
     </>
@@ -112,9 +117,14 @@ const Practice = ({ flashcards, apiClient }) => {
       setCardNumber(cardNumber - 1);
     }
   }, [cardNumber]);
+  const showResult = () => {
+    window.location.href = "/result";
+  };
   const editIsLearnt = () => {
     apiClient.editIsLearnt(cardsToPractice[cardNumber]);
   };
+  console.log(cardsToPractice);
+  console.log(cardNumber);
   return (
     <>
       {showFront && (
@@ -130,6 +140,16 @@ const Practice = ({ flashcards, apiClient }) => {
         />
       )}
       <Stack direction="row" spacing={2} className={styles.stack}>
+        {/* {cardNumber !== 0 && (
+          <Button
+            variant="contained"
+            startIcon={<ArrowBackIosSharpIcon />}
+            className={styles.slideButton}
+            onClick={incrementCard}
+          >
+            Previous
+          </Button>
+        )} */}
         <Button
           variant="contained"
           startIcon={<ArrowBackIosSharpIcon />}
@@ -146,6 +166,27 @@ const Practice = ({ flashcards, apiClient }) => {
         >
           Next
         </Button>
+        {/* {cardNumber !== cardsToPractice.length - 1 && (
+          <Button
+            variant="contained"
+            endIcon={<ArrowForwardIosSharpIcon />}
+            className={styles.slideButton}
+            onClick={decrementCard}
+          >
+            Next
+          </Button>
+        )} */}
+      </Stack>
+      <Stack direction="row">
+        {cardNumber === cardsToPractice.length - 1 && (
+          <Button
+            variant="contained"
+            className={styles.stack}
+            onClick={showResult}
+          >
+            Show Results
+          </Button>
+        )}
       </Stack>
       <Stack direction="row" spacing={2} className={styles.stack}>
         <Button
@@ -208,6 +249,17 @@ const CreateCard = ({ apiClient }) => {
     <>
       <EmptySides />
     </>
+  );
+};
+
+const Result = ({ flashcards }) => {
+  return (
+    <div>
+      <h2>Result page</h2>
+      {flashcards.map((flashcard) => {
+        return <ResultFlashcard flashcard={flashcard} />;
+      })}
+    </div>
   );
 };
 export default App;
