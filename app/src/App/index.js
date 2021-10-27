@@ -82,6 +82,7 @@ const Home = ({ flashcards, loading }) => {
       {isAuthenticated && !loading ? (
         <div>
           <h2>Hello, {user.given_name}</h2>
+          <h2>Deployment test</h2>
           <Flashcards flashcards={flashcards} />
         </div>
       ) : null}
