@@ -14,7 +14,7 @@ const makeApi = (accessToken) => {
     },
     saveFlashcard: (card) => {
       console.log("saveFlashcard apiClient");
-      return _put("api/flashcards", { card });
+      return _put("api/flashcards/save-card/", { card });
     },
     // addFlashcard: (front, back) => _post("api/flashcards", { front, back }),
     deleteFlashcard: (id) => {

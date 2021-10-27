@@ -15,7 +15,7 @@ router.get("/:cardId", async (request, response) => {
   );
   response.json(flashcard);
 });
-router.put("/", async (request, response) => {
+router.put("/save-card/", async (request, response) => {
   const id = request.body.id;
   const params = {
     front: request.body.front,

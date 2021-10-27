@@ -35,6 +35,7 @@ const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
       back: back,
     };
     await apiClient.saveFlashcard(card);
+    console.log("react", card);
     window.location.href = "/";
   };
   const saveAndAddCard = () => {
