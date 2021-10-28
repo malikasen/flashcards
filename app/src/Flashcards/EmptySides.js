@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 
 import useApi from "../auth/useApi";
 
+import DictionarySearch from "./DictionarySearch";
 import styles from "./styles.module.scss";
 
 const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
@@ -43,6 +44,7 @@ const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
   };
   return (
     <>
+      <DictionarySearch />
       <form>
         <Stack spacing={2} direction="row" className={styles.stack}>
           <Button
