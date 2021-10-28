@@ -70,7 +70,13 @@ const App = () => {
           />
           <Route
             path="/result"
-            element={<Protected component={Result} flashcards={flashcards} />}
+            element={
+              <Protected
+                component={Result}
+                flashcards={flashcards}
+                apiClient={apiClient}
+              />
+            }
           />
         </Routes>
       </main>
@@ -199,14 +205,6 @@ const Practice = ({ flashcards, apiClient }) => {
         >
           Mastered
         </Button>
-        <Button
-          variant="contained"
-          className={styles.slideButton}
-          id={styles.practiceMoreBtn}
-          // onClick={practiceMore}
-        >
-          Practice more
-        </Button>
       </Stack>
     </>
   );
@@ -252,12 +250,11 @@ const CreateCard = ({ apiClient }) => {
   );
 };
 
-const Result = ({ flashcards }) => {
+const Result = ({ flashcards, apiClient }) => {
   return (
     <div>
-      <h2>Result page</h2>
       {flashcards.map((flashcard) => {
-        return <ResultFlashcard flashcard={flashcard} />;
+        return <ResultFlashcard flashcard={flashcard} apiClient={apiClient} />;
       })}
     </div>
   );

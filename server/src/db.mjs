@@ -51,7 +51,7 @@ export const editFlashcard = (card) =>
 export const editIsLearnt = (cardId) =>
   db.one(
     `UPDATE flashcards
-      SET is_learnt=true
+      SET is_learnt=!is_learnt
       WHERE id=$<cardId>
       RETURNING *`,
     { cardId },
