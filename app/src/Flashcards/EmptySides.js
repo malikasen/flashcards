@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -13,7 +13,7 @@ import useApi from "../auth/useApi";
 import DictionarySearch from "./DictionarySearch";
 import styles from "./styles.module.scss";
 
-const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
+const EmptySides = ({ cardId, front_of_card, back_of_card, onClickSave }) => {
   const { apiClient } = useApi();
   const [front, setFront] = useState();
   const [back, setBack] = useState();
@@ -29,16 +29,17 @@ const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
     // navigate("/");
     window.location.href = "/";
   };
-  const saveCard = async () => {
-    const card = {
-      id: id,
-      front: front,
-      back: back,
+  const card = useMemo(() => {
+    return {
+      id,
+      front,
+      back,
     };
-    await apiClient.saveFlashcard(card);
-    console.log("react", card);
-    window.location.href = "/";
-  };
+  }, [id, front, back]);
+  const onClickSaveWrapper = useCallback(() => {
+    console.log("inside Save Wrapper");
+    onClickSave(card);
+  }, [card, onClickSave]);
   const saveAndAddCard = () => {
     return apiClient.saveAndAddFlashcard(id, front, back);
   };
@@ -57,7 +58,9 @@ const EmptySides = ({ cardId, front_of_card, back_of_card }) => {
           <Button
             variant="outlined"
             startIcon={<SaveAltIcon />}
-            onClick={saveCard}
+            onClick={onClickSaveWrapper}
+            // onClick={saveCard}
+            // onClick={editCard}
           >
             Save
           </Button>

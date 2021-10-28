@@ -146,42 +146,42 @@ const Practice = ({ flashcards, apiClient }) => {
         />
       )}
       <Stack direction="row" spacing={2} className={styles.stack}>
-        {/* {cardNumber !== 0 && (
+        {cardNumber !== 0 && (
           <Button
             variant="contained"
             startIcon={<ArrowBackIosSharpIcon />}
             className={styles.slideButton}
-            onClick={incrementCard}
+            onClick={decrementCard}
           >
             Previous
           </Button>
-        )} */}
-        <Button
+        )}
+        {/* <Button
           variant="contained"
           startIcon={<ArrowBackIosSharpIcon />}
           className={styles.slideButton}
-          onClick={incrementCard}
+          onClick={decrementCard}
         >
           Previous
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           variant="contained"
           endIcon={<ArrowForwardIosSharpIcon />}
           className={styles.slideButton}
-          onClick={decrementCard}
+          onClick={incrementCard}
         >
           Next
-        </Button>
-        {/* {cardNumber !== cardsToPractice.length - 1 && (
+        </Button> */}
+        {cardNumber !== cardsToPractice.length - 1 && (
           <Button
             variant="contained"
             endIcon={<ArrowForwardIosSharpIcon />}
             className={styles.slideButton}
-            onClick={decrementCard}
+            onClick={incrementCard}
           >
             Next
           </Button>
-        )} */}
+        )}
       </Stack>
       <Stack direction="row">
         {cardNumber === cardsToPractice.length - 1 && (
@@ -243,9 +243,13 @@ const EditCard = () => {
 };
 
 const CreateCard = ({ apiClient }) => {
+  const saveCard = async (card) => {
+    await apiClient.saveFlashcard(card);
+    window.location.href = "/";
+  };
   return (
     <>
-      <EmptySides />
+      <EmptySides onClickSave={saveCard} />
     </>
   );
 };

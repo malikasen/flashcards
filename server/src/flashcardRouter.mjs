@@ -3,7 +3,7 @@ import express from "express";
 import * as db from "./db.mjs";
 
 const router = express.Router();
-
+router.use(express.json());
 router.get("/", async (request, response) => {
   const flashcards = await db.getFlashcards(request.user.sub);
   response.json(flashcards);
@@ -15,21 +15,22 @@ router.get("/:cardId", async (request, response) => {
   );
   response.json(flashcard);
 });
-router.put("/save-card/", async (request, response) => {
-  const id = request.body.id;
+router.post("/", async (request, response) => {
   const params = {
-    front: request.body.front,
-    back: request.body.back,
+    front: request.body.card.front,
+    back: request.body.card.back,
   };
-  if (id) {
-    console.log("editing", params);
-    const flashcards = await db.addFlashcard(request.user.sub, params);
-    response.json(flashcards);
-  } else {
-    console.log("creating", params);
-    const flashcards = await db.editFlashcard(request.user.sub, params);
-    response.json(flashcards);
-  }
+  const newFlashcard = await db.addFlashcard(request.user.sub, params);
+  response.json(newFlashcard);
+  // if (id) {
+  //   console.log("editing", params);
+  //   const flashcards = await db.addFlashcard(request.user.sub, params);
+  //   response.json(flashcards);
+  // } else {
+  //   console.log("creating", params);
+  //   const flashcards = await db.editFlashcard(request.user.sub, params);
+  //   response.json(flashcards);
+  // }
 });
 router.put("/:cardId", async (request, response) => {
   const updatedFlashcard = await db.editIsLearnt(request.params.cardId);
@@ -40,7 +41,5 @@ router.delete("/:id", async (request, response) => {
   const updatedFlashcard = await db.deleteFlashcard(request.params.id);
   response.status(200).json(updatedFlashcard);
 });
-
-router.use(express.json());
 
 export default router;

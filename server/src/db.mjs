@@ -33,20 +33,20 @@ export const addTask = (sub, name) =>
 
 export const addFlashcard = (sub, params) =>
   db.one(
-    `INSERT INTO flashcards(user_id, front_of_card, back_of_card)
-      VALUES((SELECT id FROM users WHERE sub=$<sub>), $<params.front>, $<params.back>)
+    `INSERT INTO flashcards(user_id, front_of_card, back_of_card, is_learnt)
+      VALUES((SELECT id FROM users WHERE sub=$<sub>), $<params.front>, $<params.back>, false)
       RETURNING *`,
     { sub, params },
   );
 
-export const editFlashcard = (card) =>
-  db.one(
-    `UPDATE flashcards
-      SET front_of_card=$<card.front>, back_of_card=$<card.back>
-      WHERE id=$<card.id>
-      RETURNING *`,
-    { card },
-  );
+// export const editFlashcard = (card) =>
+//   db.one(
+//     `UPDATE flashcards
+//       SET front_of_card=$<card.front>, back_of_card=$<card.back>
+//       WHERE id=$<card.id>
+//       RETURNING *`,
+//     { card },
+//   );
 
 export const editIsLearnt = (cardId) =>
   db.one(

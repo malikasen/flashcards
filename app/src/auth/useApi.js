@@ -13,8 +13,8 @@ const makeApi = (accessToken) => {
       return _put(`/api/flashcards/${card.id}`, { card });
     },
     saveFlashcard: (card) => {
-      console.log("saveFlashcard apiClient");
-      return _put("api/flashcards/save-card/", { card });
+      console.log("Flashcard apiClient", card);
+      return _post("/api/flashcards", { card });
     },
     // addFlashcard: (front, back) => _post("api/flashcards", { front, back }),
     deleteFlashcard: (id) => {
@@ -26,6 +26,8 @@ const makeApi = (accessToken) => {
   const _get = async (url) => (await _fetch(url)).json();
 
   const _post = async (url, body) => {
+    console.log("body", body);
+    console.log("json", JSON.stringify(body));
     const response = await _fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
