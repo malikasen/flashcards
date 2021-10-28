@@ -22,15 +22,16 @@ router.post("/", async (request, response) => {
   };
   const newFlashcard = await db.addFlashcard(request.user.sub, params);
   response.json(newFlashcard);
-  // if (id) {
-  //   console.log("editing", params);
-  //   const flashcards = await db.addFlashcard(request.user.sub, params);
-  //   response.json(flashcards);
-  // } else {
-  //   console.log("creating", params);
-  //   const flashcards = await db.editFlashcard(request.user.sub, params);
-  //   response.json(flashcards);
-  // }
+});
+router.put("/edit/:cardId", async (request, response) => {
+  console.log(request.body);
+  const params = {
+    id: request.body.card.id,
+    front: request.body.card.front,
+    back: request.body.card.back,
+  };
+  const updatedFlashcard = await db.editFlashcard(params);
+  response.json(updatedFlashcard);
 });
 router.put("/:cardId", async (request, response) => {
   const updatedFlashcard = await db.editIsLearnt(request.params.cardId);

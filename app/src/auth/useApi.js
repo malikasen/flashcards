@@ -13,10 +13,12 @@ const makeApi = (accessToken) => {
       return _put(`/api/flashcards/${card.id}`, { card });
     },
     saveFlashcard: (card) => {
-      console.log("Flashcard apiClient", card);
       return _post("/api/flashcards", { card });
     },
-    // addFlashcard: (front, back) => _post("api/flashcards", { front, back }),
+    editFlashcard: (card) => {
+      console.log("Flashcard apiClient", card);
+      return _put(`/api/flashcards/edit/${card.id}`, { card });
+    },
     deleteFlashcard: (id) => {
       console.log("delete in apiClient");
       return _delete(`/api/flashcards/${id}`, { id });

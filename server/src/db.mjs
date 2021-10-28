@@ -39,14 +39,14 @@ export const addFlashcard = (sub, params) =>
     { sub, params },
   );
 
-// export const editFlashcard = (card) =>
-//   db.one(
-//     `UPDATE flashcards
-//       SET front_of_card=$<card.front>, back_of_card=$<card.back>
-//       WHERE id=$<card.id>
-//       RETURNING *`,
-//     { card },
-//   );
+export const editFlashcard = (card) =>
+  db.one(
+    `UPDATE flashcards
+      SET front_of_card=$<card.front>, back_of_card=$<card.back>
+      WHERE id=$<card.id>
+      RETURNING *`,
+    { card },
+  );
 
 export const editIsLearnt = (cardId) =>
   db.one(

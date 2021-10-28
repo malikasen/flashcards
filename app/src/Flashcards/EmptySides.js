@@ -37,7 +37,6 @@ const EmptySides = ({ cardId, front_of_card, back_of_card, onClickSave }) => {
     };
   }, [id, front, back]);
   const onClickSaveWrapper = useCallback(() => {
-    console.log("inside Save Wrapper");
     onClickSave(card);
   }, [card, onClickSave]);
   const saveAndAddCard = () => {

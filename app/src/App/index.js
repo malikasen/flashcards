@@ -156,22 +156,6 @@ const Practice = ({ flashcards, apiClient }) => {
             Previous
           </Button>
         )}
-        {/* <Button
-          variant="contained"
-          startIcon={<ArrowBackIosSharpIcon />}
-          className={styles.slideButton}
-          onClick={decrementCard}
-        >
-          Previous
-        </Button> */}
-        {/* <Button
-          variant="contained"
-          endIcon={<ArrowForwardIosSharpIcon />}
-          className={styles.slideButton}
-          onClick={incrementCard}
-        >
-          Next
-        </Button> */}
         {cardNumber !== cardsToPractice.length - 1 && (
           <Button
             variant="contained"
@@ -222,21 +206,24 @@ const EditCard = () => {
   React.useEffect(() => {
     !loading && loadFlashcard();
   }, [loading, loadFlashcard]);
+  const editCard = async (card) => {
+    await apiClient.editFlashcard(card);
+    window.location.href = "/";
+  };
   if (!card.id) {
-    // console.log("no card");
     return (
       <>
         <EmptySides />
       </>
     );
   }
-  // console.log("card", card);
   return (
     <>
       <EmptySides
         cardId={card.id}
         front_of_card={card.front_of_card}
         back_of_card={card.back_of_card}
+        onClickSave={editCard}
       />
     </>
   );
