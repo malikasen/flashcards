@@ -3,28 +3,25 @@ import { useState } from "react";
 
 import useApi from "../auth/useApi";
 
-const DictionarySearch = ({ definition, setDefinition }) => {
+const DictionarySearch = ({ front, setFront, back, setBack }) => {
   const { apiClient } = useApi();
-  const [word, setWord] = useState("");
   const getDefinition = async (event) => {
     event.preventDefault();
-    const result = await apiClient.getDefinition(word);
-    setDefinition(result);
-    setWord("");
+    const result = await apiClient.getDefinition(front);
+    setBack(result);
   };
   return (
     <>
       <form onSubmit={getDefinition}>
         <input
           type="text"
-          value={word}
-          onChange={(e) => setWord(e.target.value)}
+          value={front}
+          onChange={(e) => setFront(e.target.value)}
           placeholder="search"
           required
         ></input>
-        ;<input type="submit" value="search"></input>
+        <input type="submit" value="search"></input>
       </form>
-      {definition && <div>{definition}</div>}
     </>
   );
 };

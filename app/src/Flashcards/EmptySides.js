@@ -23,9 +23,9 @@ const EmptySides = ({
   const [front, setFront] = useState();
   const [back, setBack] = useState();
   const [id, setId] = useState();
-  const [definition, setDefinition] = useState([]);
+  // const [word, setWord] = useState("");
+  // const [definition, setDefinition] = useState([]);
   const location = useLocation();
-  console.log(location.pathname);
 
   // const navigate = useNavigate();
   useEffect(() => {
@@ -61,8 +61,10 @@ const EmptySides = ({
     <>
       {location.pathname === "/new-card" && (
         <DictionarySearch
-          definition={definition}
-          setDefinition={setDefinition}
+          front={front}
+          setFront={setFront}
+          back={back}
+          setBack={setBack}
         />
       )}
       <form>
