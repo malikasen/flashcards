@@ -210,6 +210,13 @@ const EditCard = () => {
     await apiClient.editFlashcard(card);
     window.location.href = "/";
   };
+  const editCardAndAddCard = async (card) => {
+    await apiClient.editFlashcard(card);
+  };
+  const deleteCard = async (id) => {
+    await apiClient.deleteFlashcard(id);
+    window.location.href = "/";
+  };
   if (!card.id) {
     return (
       <>
@@ -224,6 +231,8 @@ const EditCard = () => {
         front_of_card={card.front_of_card}
         back_of_card={card.back_of_card}
         onClickSave={editCard}
+        onClickSaveAndAddCard={editCardAndAddCard}
+        onClickDeleteCard={deleteCard}
       />
     </>
   );
@@ -234,9 +243,19 @@ const CreateCard = ({ apiClient }) => {
     await apiClient.saveFlashcard(card);
     window.location.href = "/";
   };
+  const saveCardAndAddCard = async (card) => {
+    await apiClient.saveFlashcard(card);
+  };
+  const deleteCard = (id) => {
+    window.location.href = "/";
+  };
   return (
     <>
-      <EmptySides onClickSave={saveCard} />
+      <EmptySides
+        onClickSave={saveCard}
+        onClickSaveAndAddCard={saveCardAndAddCard}
+        onClickDeleteCard={deleteCard}
+      />
     </>
   );
 };

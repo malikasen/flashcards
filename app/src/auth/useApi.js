@@ -26,8 +26,6 @@ const makeApi = (accessToken) => {
   const _get = async (url) => (await _fetch(url)).json();
 
   const _post = async (url, body) => {
-    console.log("body", body);
-    console.log("json", JSON.stringify(body));
     const response = await _fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

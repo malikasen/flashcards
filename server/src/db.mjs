@@ -49,7 +49,6 @@ export const editFlashcard = (card) =>
   );
 
 export const editIsLearnt = (cardId) => {
-  // console.log(typeof cardId);
   return db.one(
     `UPDATE flashcards
       SET is_learnt=NOT is_learnt

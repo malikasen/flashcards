@@ -24,7 +24,6 @@ router.post("/", async (request, response) => {
   response.json(newFlashcard);
 });
 router.put("/edit/:cardId", async (request, response) => {
-  console.log(request.body);
   const params = {
     id: request.body.card.id,
     front: request.body.card.front,
