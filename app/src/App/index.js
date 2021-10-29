@@ -181,9 +181,7 @@ const Practice = ({ flashcards, apiClient }) => {
           variant="contained"
           className={styles.slideButton}
           id={styles.masteredBtn}
-          onClick={() => {
-            return editIsLearnt();
-          }}
+          onClick={editIsLearnt}
         >
           Mastered
         </Button>

@@ -1,5 +1,4 @@
 import express from "express";
-
 import fetch from "node-fetch";
 
 const router = express.Router();
@@ -7,7 +6,6 @@ router.use(express.json());
 
 router.get("/", (request, response) => {
   const word = request.query.word;
-  console.log("word", word);
   fetch(
     "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" +
       word +
