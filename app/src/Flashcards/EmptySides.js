@@ -7,6 +7,7 @@ import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 // import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import DictionarySearch from "./DictionarySearch";
 import styles from "./styles.module.scss";
@@ -22,6 +23,10 @@ const EmptySides = ({
   const [front, setFront] = useState();
   const [back, setBack] = useState();
   const [id, setId] = useState();
+  const [definition, setDefinition] = useState([]);
+  const location = useLocation();
+  console.log(location.pathname);
+
   // const navigate = useNavigate();
   useEffect(() => {
     setId(cardId);
@@ -54,7 +59,12 @@ const EmptySides = ({
   }, [id, onClickDeleteCard]);
   return (
     <>
-      <DictionarySearch />
+      {location.pathname === "/new-card" && (
+        <DictionarySearch
+          definition={definition}
+          setDefinition={setDefinition}
+        />
+      )}
       <form>
         <Stack spacing={2} direction="row" className={styles.stack}>
           <Button

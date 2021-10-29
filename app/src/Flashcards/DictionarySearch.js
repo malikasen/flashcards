@@ -3,9 +3,8 @@ import { useState } from "react";
 
 import useApi from "../auth/useApi";
 
-const DictionarySearch = () => {
+const DictionarySearch = ({ definition, setDefinition }) => {
   const { apiClient } = useApi();
-  const [definition, setDefinition] = useState([]);
   const [word, setWord] = useState("");
   const getDefinition = async (event) => {
     event.preventDefault();
