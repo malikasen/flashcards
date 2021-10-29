@@ -15,13 +15,13 @@ export const getFlashcards = (sub) =>
   db.any(
     "SELECT flashcards.* from flashcards LEFT JOIN users on user_id=users.id WHERE sub=$<sub>",
     { sub },
-  )
+  );
 
 export const getFlashcard = (sub, cardId) => 
   db.one(
     "SELECT flashcards.* from flashcards LEFT JOIN users on user_id=users.id WHERE sub=$<sub> and flashcards.id=$<cardId>",
     { sub, cardId },
-  )
+  );
 
 export const addTask = (sub, name) =>
   db.one(

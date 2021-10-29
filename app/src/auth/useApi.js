@@ -7,6 +7,10 @@ const makeApi = (accessToken) => {
     getTasks: () => _get("/api/tasks"),
     getFlashcards: () => _get("/api/flashcards"),
     getCard: (cardId) => _get(`/api/flashcards/${cardId}`),
+    getDefinition: (word) => {
+      console.log("word", word);
+      return _get("/api/dictionary?word=" + word);
+    },
     addTask: (name) => _post("/api/tasks", { name }),
     addOrUpdateUser: (user) => _post("/api/users", { user }),
     editIsLearnt: (card) => {

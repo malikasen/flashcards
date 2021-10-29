@@ -129,8 +129,6 @@ const Practice = ({ flashcards, apiClient }) => {
   const editIsLearnt = () => {
     apiClient.editIsLearnt(cardsToPractice[cardNumber]);
   };
-  console.log(cardsToPractice);
-  console.log(cardNumber);
   return (
     <>
       {showFront && (
