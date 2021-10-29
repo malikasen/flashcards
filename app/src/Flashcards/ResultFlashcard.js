@@ -25,7 +25,7 @@ const ResultFlashcard = ({ flashcard, apiClient }) => {
             id={styles.masteredBtn}
             onClick={editIsLearnt}
           >
-            Mastered
+            Practice more
           </Button>
         ) : (
           <Button
@@ -34,7 +34,7 @@ const ResultFlashcard = ({ flashcard, apiClient }) => {
             id={styles.practiceMoreBtn}
             onClick={editIsLearnt}
           >
-            Practice more
+            Mastered
           </Button>
         )}
       </Stack>

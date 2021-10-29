@@ -16,11 +16,9 @@ const makeApi = (accessToken) => {
       return _post("/api/flashcards", { card });
     },
     editFlashcard: (card) => {
-      console.log("Flashcard apiClient", card);
       return _put(`/api/flashcards/edit/${card.id}`, { card });
     },
     deleteFlashcard: (id) => {
-      console.log("delete in apiClient");
       return _delete(`/api/flashcards/${id}`, { id });
     },
   };

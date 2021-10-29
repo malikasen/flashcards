@@ -48,14 +48,16 @@ export const editFlashcard = (card) =>
     { card },
   );
 
-export const editIsLearnt = (cardId) =>
-  db.one(
+export const editIsLearnt = (cardId) => {
+  // console.log(typeof cardId);
+  return db.one(
     `UPDATE flashcards
-      SET is_learnt=!is_learnt
+      SET is_learnt=NOT is_learnt
       WHERE id=$<cardId>
       RETURNING *`,
     { cardId },
   );
+};
 
 export const deleteFlashcard = (cardId) =>
   db.one(
