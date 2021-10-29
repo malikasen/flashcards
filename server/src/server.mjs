@@ -4,12 +4,10 @@ import mime from "mime-types";
 import dictionaryRouter from "./dictionaryRouter.mjs";
 import flashcardRouter from "./flashcardRouter.mjs";
 import jwtCheck from "./jwtCheck.mjs";
-import taskRouter from "./taskRouter.mjs";
 import userRouter from "./userRouter.mjs";
 
 const app = express();
 
-app.use("/api/tasks", jwtCheck, taskRouter);
 app.use("/api/users", jwtCheck, userRouter);
 app.use("/api/flashcards", jwtCheck, flashcardRouter);
 app.use("/api/dictionary", jwtCheck, dictionaryRouter);
