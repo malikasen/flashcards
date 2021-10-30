@@ -89,12 +89,13 @@ const Home = ({ flashcards, loading }) => {
 
   return (
     <div>
-      <header className={styles.header}>
+      {/* <header className={styles.header}>
         <h1>{process.env.REACT_APP_TITLE}</h1>
-      </header>
+      </header> */}
       {isAuthenticated && !loading ? (
         <div>
           <h2>Hello, {user.given_name}</h2>
+          <h3>You have {flashcards.length} cards!</h3>
           <Flashcards flashcards={flashcards} />
         </div>
       ) : null}
