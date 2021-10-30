@@ -32,7 +32,7 @@ const Flashcard = ({ flashcard }) => {
             id={styles.masteredBtn}
             onClick={editIsLearnt}
           >
-            Practice more
+            Mark as not learnt
           </Button>
         ) : (
           <Button
@@ -41,7 +41,7 @@ const Flashcard = ({ flashcard }) => {
             id={styles.practiceMoreBtn}
             onClick={editIsLearnt}
           >
-            Mastered
+            Mark as learnt
           </Button>
         )}
       </Stack>
