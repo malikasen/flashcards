@@ -96,12 +96,14 @@ const EmptySides = ({
             className={styles.side}
             value={front}
             onChange={(e) => setFront(e.target.value)}
+            placeholder="front side information goes here"
             required
           ></input>
           <input
             className={styles.side}
             value={back}
             onChange={(e) => setBack(e.target.value)}
+            placeholder="back side information goes here"
             required
           ></input>
         </Stack>
