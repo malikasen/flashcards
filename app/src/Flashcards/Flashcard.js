@@ -10,10 +10,11 @@ import useApi from "../auth/useApi";
 
 import styles from "./styles.module.scss";
 
-const Flashcard = ({ flashcard }) => {
+const Flashcard = ({ flashcard, loadFlashcards }) => {
   const { apiClient } = useApi();
-  const editIsLearnt = () => {
-    apiClient.editIsLearnt(flashcard);
+  const editIsLearnt = async () => {
+    await apiClient.editIsLearnt(flashcard);
+    loadFlashcards();
   };
   return (
     <>
