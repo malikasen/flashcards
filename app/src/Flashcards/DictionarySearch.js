@@ -13,7 +13,10 @@ const DictionarySearch = ({ front, setFront, back, setBack }) => {
   return (
     <>
       <form onSubmit={getDefinition}>
+        <label htmlFor="definition">Check out dictionary definitions</label>
         <input
+          id="definition"
+          name="defintitionSearch"
           type="text"
           value={front}
           onChange={(e) => setFront(e.target.value)}
