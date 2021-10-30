@@ -33,7 +33,7 @@ const App = () => {
     async () => setFlashcards(await apiClient.getFlashcards()),
     [apiClient],
   );
-
+  const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
   React.useEffect(() => {
     !loading && loadFlashcards();
   }, [loading, loadFlashcards]);
@@ -73,7 +73,7 @@ const App = () => {
             element={
               <Protected
                 component={Result}
-                flashcards={flashcards}
+                cardsToPractice={cardsToPractice}
                 apiClient={apiClient}
               />
             }
@@ -257,10 +257,10 @@ const CreateCard = ({ apiClient }) => {
   );
 };
 
-const Result = ({ flashcards, apiClient }) => {
+const Result = ({ cardsToPractice, apiClient }) => {
   return (
     <div>
-      {flashcards.map((flashcard) => {
+      {cardsToPractice.map((flashcard) => {
         return <ResultFlashcard flashcard={flashcard} apiClient={apiClient} />;
       })}
     </div>
