@@ -226,11 +226,11 @@ const EditCard = () => {
   React.useEffect(() => {
     !loading && loadFlashcard();
   }, [loading, loadFlashcard]);
-  const editCard = async (card) => {
+  const editCardAndRedirect = async (card) => {
     await apiClient.editFlashcard(card);
     window.location.href = "/";
   };
-  const editCardAndAddCard = async (card) => {
+  const editCard = async (card) => {
     await apiClient.editFlashcard(card);
   };
   const deleteCard = async (id) => {
@@ -250,8 +250,8 @@ const EditCard = () => {
         cardId={card.id}
         front_of_card={card.front_of_card}
         back_of_card={card.back_of_card}
-        onClickSave={editCard}
-        onClickSaveAndAddCard={editCardAndAddCard}
+        onClickSave={editCardAndRedirect}
+        onClickSaveAndAddCard={editCard}
         onClickDeleteCard={deleteCard}
       />
     </>
@@ -259,11 +259,11 @@ const EditCard = () => {
 };
 
 const CreateCard = ({ apiClient }) => {
-  const saveCard = async (card) => {
+  const saveCardAndRedirect = async (card) => {
     await apiClient.saveFlashcard(card);
     window.location.href = "/";
   };
-  const saveCardAndAddCard = async (card) => {
+  const saveCard = async (card) => {
     await apiClient.saveFlashcard(card);
   };
   const deleteCard = (id) => {
@@ -272,8 +272,8 @@ const CreateCard = ({ apiClient }) => {
   return (
     <>
       <EmptySides
-        onClickSave={saveCard}
-        onClickSaveAndAddCard={saveCardAndAddCard}
+        onClickSave={saveCardAndRedirect}
+        onClickSaveAndAddCard={saveCard}
         onClickDeleteCard={deleteCard}
       />
     </>
