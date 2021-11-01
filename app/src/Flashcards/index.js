@@ -1,32 +1,35 @@
 import * as React from "react";
+import { useEffect } from "react";
 
 import Flashcard from "./Flashcard";
 
 const Flashcards = ({ flashcards, loadFlashcards }) => {
+  const unlearntFlashcards = flashcards.filter(
+    (flashcard) => flashcard.is_learnt === false,
+  );
+  const learntFlashcards = flashcards.filter(
+    (flashcard) => flashcard.is_learnt === true,
+  );
   return (
     <>
       <h3>
         These cards you haven't learnt yet. Total count:
-        {flashcards.filter((flashcard) => flashcard.is_learnt === false).length}
+        {unlearntFlashcards.length}
       </h3>
-      {flashcards
-        .filter((flashcard) => flashcard.is_learnt === false)
-        .map((flashcard) => {
-          return (
-            <Flashcard flashcard={flashcard} loadFlashcards={loadFlashcards} />
-          );
-        })}
+      {unlearntFlashcards.map((flashcard) => {
+        return (
+          <Flashcard flashcard={flashcard} loadFlashcards={loadFlashcards} />
+        );
+      })}
       <h3>
         You have mastered these cards! Total count:
-        {flashcards.filter((flashcard) => flashcard.is_learnt === true).length}
+        {learntFlashcards.length}
       </h3>
-      {flashcards
-        .filter((flashcard) => flashcard.is_learnt === true)
-        .map((flashcard) => {
-          return (
-            <Flashcard flashcard={flashcard} loadFlashcards={loadFlashcards} />
-          );
-        })}
+      {learntFlashcards.map((flashcard) => {
+        return (
+          <Flashcard flashcard={flashcard} loadFlashcards={loadFlashcards} />
+        );
+      })}
     </>
   );
 };
