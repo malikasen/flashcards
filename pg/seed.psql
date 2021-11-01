@@ -54,37 +54,6 @@ ALTER SEQUENCE public.flashcards_id_seq OWNED BY public.flashcards.id;
 
 
 --
--- Name: tasks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.tasks (
-    id integer NOT NULL,
-    name text NOT NULL,
-    user_id integer NOT NULL
-);
-
-
---
--- Name: tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.tasks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
-
-
---
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -120,13 +89,6 @@ ALTER TABLE ONLY public.flashcards ALTER COLUMN id SET DEFAULT nextval('public.f
 
 
 --
--- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
-
-
---
 -- Data for Name: flashcards; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -134,20 +96,6 @@ COPY public.flashcards (id, front_of_card, back_of_card, is_learnt, user_id) FRO
 1	anomaly	something that is unusual	f	2
 2	equivocal	not easily understood or explained	f	2
 3	lucid	very clear and easy to understand	f	2
-\.
-
-
---
--- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.tasks (id, name, user_id) FROM stdin;
-1	🙏 Be nice when you add test entries	1
-2	⏲ Added entries will be reset every Sunday	1
-3	End white supremacy	1
-4	Advocate for living wage	1
-5	Provide universal health care	1
-7	drink water	2
 \.
 
 
@@ -170,17 +118,10 @@ SELECT pg_catalog.setval('public.flashcards_id_seq', 3, true);
 
 
 --
--- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.tasks_id_seq', 7, true);
-
-
---
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 5, true);
+SELECT pg_catalog.setval('public.users_id_seq', 8, true);
 
 
 --
@@ -189,14 +130,6 @@ SELECT pg_catalog.setval('public.users_id_seq', 5, true);
 
 ALTER TABLE ONLY public.flashcards
     ADD CONSTRAINT flashcards_pkey PRIMARY KEY (id);
-
-
---
--- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
 
 
 --
@@ -213,14 +146,6 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_sub_key UNIQUE (sub);
-
-
---
--- Name: tasks fk_user; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
 
 --

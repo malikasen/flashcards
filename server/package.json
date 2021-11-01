@@ -16,6 +16,7 @@
     "express-jwt": "^6.1.0",
     "jwks-rsa": "^2.0.4",
     "mime-types": "^2.1.30",
+    "node-fetch": "^3.0.0",
     "pg-promise": "^10.9.5"
   },
   "devDependencies": {

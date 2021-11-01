@@ -28,12 +28,13 @@ const App = () => {
     }
   }, [isAuthenticated, user, loading, apiClient]);
   const [flashcards, setFlashcards] = useState([]);
+  const [masteredCards, setMasteredCards] = useState([]);
 
   const loadFlashcards = React.useCallback(
     async () => setFlashcards(await apiClient.getFlashcards()),
     [apiClient],
   );
-
+  const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
   React.useEffect(() => {
     !loading && loadFlashcards();
   }, [loading, loadFlashcards]);
@@ -46,7 +47,13 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<Home loading={loading} flashcards={flashcards} />}
+            element={
+              <Home
+                loading={loading}
+                flashcards={flashcards}
+                loadFlashcards={loadFlashcards}
+              />
+            }
           />
           <Route
             path="/practice"
@@ -56,6 +63,8 @@ const App = () => {
                   component={Practice}
                   flashcards={flashcards}
                   apiClient={apiClient}
+                  masteredCards={masteredCards}
+                  setMasteredCards={setMasteredCards}
                 />
               )
             }
@@ -73,8 +82,10 @@ const App = () => {
             element={
               <Protected
                 component={Result}
-                flashcards={flashcards}
+                // flashcards={flashcards}
+                cardsToPractice={cardsToPractice}
                 apiClient={apiClient}
+                masteredCards={masteredCards}
               />
             }
           />
@@ -84,26 +95,36 @@ const App = () => {
   );
 };
 
-const Home = ({ flashcards, loading }) => {
+const Home = ({ flashcards, loading, loadFlashcards }) => {
   const { isAuthenticated, user } = useAuth0();
-
+  React.useEffect(() => {
+    !loading && loadFlashcards();
+  }, [loading, loadFlashcards]);
   return (
     <div>
-      <header className={styles.header}>
+      {/* <header className={styles.header}>
         <h1>{process.env.REACT_APP_TITLE}</h1>
-      </header>
+      </header> */}
       {isAuthenticated && !loading ? (
         <div>
           <h2>Hello, {user.given_name}</h2>
-          <Flashcards flashcards={flashcards} />
+          <h3>You have {flashcards.length} cards!</h3>
+          <Flashcards flashcards={flashcards} loadFlashcards={loadFlashcards} />
         </div>
       ) : null}
     </div>
   );
 };
 
-const Practice = ({ flashcards, apiClient }) => {
-  const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
+const Practice = ({
+  flashcards,
+  apiClient,
+  masteredCards,
+  setMasteredCards,
+}) => {
+  const [cardsToPractice, setCardsToPractice] = useState(
+    flashcards.filter((card) => card.is_learnt === false),
+  );
   const [cardNumber, setCardNumber] = useState(0);
   const [showFront, setShowFront] = useState(true);
   const toggleSide = useCallback(() => {
@@ -126,11 +147,12 @@ const Practice = ({ flashcards, apiClient }) => {
   const showResult = () => {
     window.location.href = "/result";
   };
-  const editIsLearnt = () => {
-    apiClient.editIsLearnt(cardsToPractice[cardNumber]);
-  };
-  console.log(cardsToPractice);
-  console.log(cardNumber);
+  const onClickMastered = useCallback(async () => {
+    const currentCard = cardsToPractice[cardNumber];
+    await apiClient.editIsLearnt(currentCard);
+    console.log(currentCard);
+    setMasteredCards([...masteredCards, currentCard]);
+  }, [cardNumber, masteredCards]);
   return (
     <>
       {showFront && (
@@ -183,9 +205,7 @@ const Practice = ({ flashcards, apiClient }) => {
           variant="contained"
           className={styles.slideButton}
           id={styles.masteredBtn}
-          onClick={() => {
-            return editIsLearnt();
-          }}
+          onClick={onClickMastered}
         >
           Mastered
         </Button>
@@ -206,8 +226,15 @@ const EditCard = () => {
   React.useEffect(() => {
     !loading && loadFlashcard();
   }, [loading, loadFlashcard]);
+  const editCardAndRedirect = async (card) => {
+    await apiClient.editFlashcard(card);
+    window.location.href = "/";
+  };
   const editCard = async (card) => {
     await apiClient.editFlashcard(card);
+  };
+  const deleteCard = async (id) => {
+    await apiClient.deleteFlashcard(id);
     window.location.href = "/";
   };
   if (!card.id) {
@@ -223,28 +250,44 @@ const EditCard = () => {
         cardId={card.id}
         front_of_card={card.front_of_card}
         back_of_card={card.back_of_card}
-        onClickSave={editCard}
+        onClickSave={editCardAndRedirect}
+        onClickSaveAndAddCard={editCard}
+        onClickDeleteCard={deleteCard}
       />
     </>
   );
 };
 
 const CreateCard = ({ apiClient }) => {
+  const saveCardAndRedirect = async (card) => {
+    await apiClient.saveFlashcard(card);
+    window.location.href = "/";
+  };
   const saveCard = async (card) => {
     await apiClient.saveFlashcard(card);
+  };
+  const deleteCard = (id) => {
     window.location.href = "/";
   };
   return (
     <>
-      <EmptySides onClickSave={saveCard} />
+      <EmptySides
+        onClickSave={saveCardAndRedirect}
+        onClickSaveAndAddCard={saveCard}
+        onClickDeleteCard={deleteCard}
+      />
     </>
   );
 };
 
-const Result = ({ flashcards, apiClient }) => {
+const Result = ({ cardsToPractice, apiClient, masteredCards }) => {
+  console.log(masteredCards);
   return (
     <div>
-      {flashcards.map((flashcard) => {
+      {cardsToPractice.map((flashcard) => {
+        return <ResultFlashcard flashcard={flashcard} apiClient={apiClient} />;
+      })}
+      {masteredCards.map((flashcard) => {
         return <ResultFlashcard flashcard={flashcard} apiClient={apiClient} />;
       })}
     </div>

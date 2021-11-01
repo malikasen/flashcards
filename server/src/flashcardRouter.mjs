@@ -24,7 +24,6 @@ router.post("/", async (request, response) => {
   response.json(newFlashcard);
 });
 router.put("/edit/:cardId", async (request, response) => {
-  console.log(request.body);
   const params = {
     id: request.body.card.id,
     front: request.body.card.front,
@@ -34,11 +33,10 @@ router.put("/edit/:cardId", async (request, response) => {
   response.json(updatedFlashcard);
 });
 router.put("/:cardId", async (request, response) => {
-  const updatedFlashcard = await db.editIsLearnt(request.params.cardId);
+  const updatedFlashcard = await db.editIsLearnt(request.body.card.id);
   response.status(200).json(updatedFlashcard);
 });
 router.delete("/:id", async (request, response) => {
-  console.log(request);
   const updatedFlashcard = await db.deleteFlashcard(request.params.id);
   response.status(200).json(updatedFlashcard);
 });

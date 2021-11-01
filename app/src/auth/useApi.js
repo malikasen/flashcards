@@ -4,10 +4,12 @@ import useAuth0 from "./useAuth0";
 
 const makeApi = (accessToken) => {
   const actions = {
-    getTasks: () => _get("/api/tasks"),
     getFlashcards: () => _get("/api/flashcards"),
     getCard: (cardId) => _get(`/api/flashcards/${cardId}`),
-    addTask: (name) => _post("/api/tasks", { name }),
+    getDefinition: (word) => {
+      console.log("word", word);
+      return _get("/api/dictionary?word=" + word);
+    },
     addOrUpdateUser: (user) => _post("/api/users", { user }),
     editIsLearnt: (card) => {
       return _put(`/api/flashcards/${card.id}`, { card });
@@ -16,11 +18,9 @@ const makeApi = (accessToken) => {
       return _post("/api/flashcards", { card });
     },
     editFlashcard: (card) => {
-      console.log("Flashcard apiClient", card);
       return _put(`/api/flashcards/edit/${card.id}`, { card });
     },
     deleteFlashcard: (id) => {
-      console.log("delete in apiClient");
       return _delete(`/api/flashcards/${id}`, { id });
     },
   };
@@ -28,8 +28,6 @@ const makeApi = (accessToken) => {
   const _get = async (url) => (await _fetch(url)).json();
 
   const _post = async (url, body) => {
-    console.log("body", body);
-    console.log("json", JSON.stringify(body));
     const response = await _fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
