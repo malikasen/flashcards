@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 
 import useAuth0 from "./useAuth0";
 
@@ -78,15 +79,15 @@ const makeApi = (accessToken) => {
   return actions;
 };
 
-const useApi = () => {
+const userApiClient = () => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     loading: true,
     error: null,
     apiClient: undefined,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAuthenticated) {
       (async () => {
         try {
@@ -106,4 +107,4 @@ const useApi = () => {
   return state;
 };
 
-export default useApi;
+export default userApiClient;
