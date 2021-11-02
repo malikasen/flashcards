@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 
-import flashcardApiClient from "../apiClient/flashcardApiClient";
+import flashcardApiClient from "../apiClient/useFlashcardApiClient";
 
 import styles from "./styles.module.scss";
 

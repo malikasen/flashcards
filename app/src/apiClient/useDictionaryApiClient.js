@@ -24,12 +24,12 @@ const makeApi = (accessToken) => {
   return actions;
 };
 
-const dictionaryApiClient = () => {
+const useDictionaryApiClient = () => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [state, setState] = React.useState({
     loading: true,
     error: null,
-    apiClient: undefined,
+    dictionaryApi: undefined,
   });
 
   React.useEffect(() => {
@@ -40,10 +40,10 @@ const dictionaryApiClient = () => {
           setState({
             loading: false,
             error: null,
-            apiClient: makeApi(accessToken),
+            dictionaryApi: makeApi(accessToken),
           });
         } catch (error) {
-          setState({ loading: false, error, apiClient: undefined });
+          setState({ loading: false, error, dictionaryApi: undefined });
         }
       })();
     }
@@ -52,4 +52,4 @@ const dictionaryApiClient = () => {
   return state;
 };
 
-export default dictionaryApiClient;
+export default useDictionaryApiClient;

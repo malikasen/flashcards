@@ -12,9 +12,9 @@ import EmptySides from "../Flashcards/EmptySides";
 import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
 import Nav from "../Nav";
-import flashcardApiClient from "../apiClient/flashcardApiClient";
+import flashcardApiClient from "../apiClient/useFlashcardApiClient";
 import useAuth0 from "../auth/useAuth0";
-import userApiClient from "../auth/userApiClient";
+import userApiClient from "../auth/useAuthApiClient";
 import { Protected } from "../auth/widgets";
 
 import styles from "./styles.module.scss";
@@ -22,7 +22,7 @@ import styles from "./styles.module.scss";
 const App = () => {
   const { isAuthenticated, user } = useAuth0();
   const { loading, userApi } = userApiClient();
-  const { flashcardApi } = flashcardApiClient();
+  const { loading: flashcardApiLoading, flashcardApi } = flashcardApiClient();
 
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
@@ -32,10 +32,11 @@ const App = () => {
   const [flashcards, setFlashcards] = useState([]);
   const [masteredCards, setMasteredCards] = useState([]);
 
-  const loadFlashcards = React.useCallback(
-    async () => setFlashcards(await flashcardApi.getFlashcards()),
-    [flashcardApi],
-  );
+  const loadFlashcards = React.useCallback(async () => {
+    if (!flashcardApiLoading) {
+      setFlashcards(await flashcardApi.getFlashcards());
+    }
+  }, [flashcardApi]);
   const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
   React.useEffect(() => {
     !loading && loadFlashcards();

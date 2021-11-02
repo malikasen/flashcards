@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import dictionaryApiClient from "../apiClient/dictionaryApiClient";
+import dictionaryApiClient from "../apiClient/useDictionaryApiClient";
 
 const DictionarySearch = ({ front, setFront, back, setBack }) => {
   const { dictionaryApi } = dictionaryApiClient();
