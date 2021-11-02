@@ -5,7 +5,12 @@ import ArrowBackIosSharpIcon from "@mui/icons-material/ArrowBackIosSharp";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { Routes, Route, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useParams,
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 import Flashcards from "../Flashcards";
 import EmptySides from "../Flashcards/EmptySides";
@@ -13,6 +18,7 @@ import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
 import Nav from "../Nav";
 import flashcardApiClient from "../apiClient/useFlashcardApiClient";
+import AuthProvider from "../auth/AuthProvider";
 import useAuth0 from "../auth/useAuth0";
 import userApiClient from "../auth/useAuthApiClient";
 import { Protected } from "../auth/widgets";
@@ -302,4 +308,11 @@ const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
     </div>
   );
 };
-export default App;
+const AppWrapper = () => (
+  <Router>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </Router>
+);
+export default AppWrapper;
