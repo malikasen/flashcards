@@ -15,7 +15,7 @@ router.get("/", (request, response) => {
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
-      return response.json(json[0].shortdef);
+      return response.json(json[0].shortdef.join("; "));
     })
     .catch((error) => console.log(error));
 });

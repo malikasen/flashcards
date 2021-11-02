@@ -1,16 +1,11 @@
 import * as React from "react";
 
-import useAuth0 from "./useAuth0";
+import useAuth0 from "../auth/useAuth0";
 
 const makeApi = (accessToken) => {
   const actions = {
     getFlashcards: () => _get("/api/flashcards"),
     getCard: (cardId) => _get(`/api/flashcards/${cardId}`),
-    getDefinition: (word) => {
-      console.log("word", word);
-      return _get("/api/dictionary?word=" + word);
-    },
-    addOrUpdateUser: (user) => _post("/api/users", { user }),
     editIsLearnt: (card) => {
       return _put(`/api/flashcards/${card.id}`, { card });
     },
@@ -78,12 +73,12 @@ const makeApi = (accessToken) => {
   return actions;
 };
 
-const useApi = () => {
+const useFlashcardApiClient = () => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [state, setState] = React.useState({
     loading: true,
     error: null,
-    apiClient: undefined,
+    flashcardApi: undefined,
   });
 
   React.useEffect(() => {
@@ -94,10 +89,10 @@ const useApi = () => {
           setState({
             loading: false,
             error: null,
-            apiClient: makeApi(accessToken),
+            flashcardApi: makeApi(accessToken),
           });
         } catch (error) {
-          setState({ loading: false, error, apiClient: undefined });
+          setState({ loading: false, error, flashcardApi: undefined });
         }
       })();
     }
@@ -106,4 +101,4 @@ const useApi = () => {
   return state;
 };
 
-export default useApi;
+export default useFlashcardApiClient;

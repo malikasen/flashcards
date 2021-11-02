@@ -6,14 +6,14 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 
-import useApi from "../auth/useApi";
+import flashcardApiClient from "../apiClient/useFlashcardApiClient";
 
 import styles from "./styles.module.scss";
 
 const Flashcard = ({ flashcard, loadFlashcards }) => {
-  const { apiClient } = useApi();
+  const { flashcardApi } = flashcardApiClient();
   const editIsLearnt = async () => {
-    await apiClient.editIsLearnt(flashcard);
+    await flashcardApi.editIsLearnt(flashcard);
     loadFlashcards();
   };
   return (

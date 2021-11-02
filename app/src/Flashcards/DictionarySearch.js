@@ -1,12 +1,12 @@
 import * as React from "react";
 
-import useApi from "../auth/useApi";
+import dictionaryApiClient from "../apiClient/useDictionaryApiClient";
 
 const DictionarySearch = ({ front, setFront, back, setBack }) => {
-  const { apiClient } = useApi();
+  const { dictionaryApi } = dictionaryApiClient();
   const getDefinition = async (event) => {
     event.preventDefault();
-    const result = await apiClient.getDefinition(front);
+    const result = await dictionaryApi.getDefinition(front);
     setBack(result);
   };
   return (

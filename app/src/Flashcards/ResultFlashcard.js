@@ -5,9 +5,9 @@ import Stack from "@mui/material/Stack";
 
 import styles from "./styles.module.scss";
 
-const ResultFlashcard = ({ flashcard, apiClient }) => {
+const ResultFlashcard = ({ flashcard, flashcardApi }) => {
   const editIsLearnt = () => {
-    apiClient.editIsLearnt(flashcard);
+    flashcardApi.editIsLearnt(flashcard);
   };
   return (
     <>

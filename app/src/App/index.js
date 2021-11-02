@@ -12,28 +12,31 @@ import EmptySides from "../Flashcards/EmptySides";
 import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
 import Nav from "../Nav";
-import useApi from "../auth/useApi";
+import flashcardApiClient from "../apiClient/useFlashcardApiClient";
 import useAuth0 from "../auth/useAuth0";
+import userApiClient from "../auth/useAuthApiClient";
 import { Protected } from "../auth/widgets";
 
 import styles from "./styles.module.scss";
 
 const App = () => {
   const { isAuthenticated, user } = useAuth0();
-  const { loading, apiClient } = useApi();
+  const { loading, userApi } = userApiClient();
+  const { loading: flashcardApiLoading, flashcardApi } = flashcardApiClient();
 
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
-      apiClient.addOrUpdateUser(user);
+      userApi.addOrUpdateUser(user);
     }
-  }, [isAuthenticated, user, loading, apiClient]);
+  }, [isAuthenticated, user, loading, userApi]);
   const [flashcards, setFlashcards] = useState([]);
   const [masteredCards, setMasteredCards] = useState([]);
 
-  const loadFlashcards = React.useCallback(
-    async () => setFlashcards(await apiClient.getFlashcards()),
-    [apiClient],
-  );
+  const loadFlashcards = React.useCallback(async () => {
+    if (!flashcardApiLoading) {
+      setFlashcards(await flashcardApi.getFlashcards());
+    }
+  }, [flashcardApi]);
   const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
   React.useEffect(() => {
     !loading && loadFlashcards();
@@ -62,7 +65,7 @@ const App = () => {
                 <Protected
                   component={Practice}
                   flashcards={flashcards}
-                  apiClient={apiClient}
+                  flashcardApi={flashcardApi}
                   masteredCards={masteredCards}
                   setMasteredCards={setMasteredCards}
                 />
@@ -71,7 +74,9 @@ const App = () => {
           />
           <Route
             path="/new-card"
-            element={<Protected component={CreateCard} apiClient={apiClient} />}
+            element={
+              <Protected component={CreateCard} flashcardApi={flashcardApi} />
+            }
           />
           <Route
             path="/edit-card/:cardId"
@@ -84,7 +89,7 @@ const App = () => {
                 component={Result}
                 // flashcards={flashcards}
                 cardsToPractice={cardsToPractice}
-                apiClient={apiClient}
+                flashcardApi={flashcardApi}
                 masteredCards={masteredCards}
               />
             }
@@ -118,7 +123,7 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
 
 const Practice = ({
   flashcards,
-  apiClient,
+  flashcardApi,
   masteredCards,
   setMasteredCards,
 }) => {
@@ -149,7 +154,7 @@ const Practice = ({
   };
   const onClickMastered = useCallback(async () => {
     const currentCard = cardsToPractice[cardNumber];
-    await apiClient.editIsLearnt(currentCard);
+    await flashcardApi.editIsLearnt(currentCard);
     console.log(currentCard);
     setMasteredCards([...masteredCards, currentCard]);
   }, [cardNumber, masteredCards]);
@@ -215,26 +220,26 @@ const Practice = ({
 };
 
 const EditCard = () => {
-  const { loading, apiClient } = useApi();
+  const { loading, flashcardApi } = flashcardApiClient();
   const { cardId } = useParams();
   const [card, setCard] = useState({});
 
   const loadFlashcard = React.useCallback(
-    async () => setCard(await apiClient.getCard(cardId)),
-    [apiClient],
+    async () => setCard(await flashcardApi.getCard(cardId)),
+    [flashcardApi],
   );
   React.useEffect(() => {
     !loading && loadFlashcard();
   }, [loading, loadFlashcard]);
   const editCardAndRedirect = async (card) => {
-    await apiClient.editFlashcard(card);
+    await flashcardApi.editFlashcard(card);
     window.location.href = "/";
   };
   const editCard = async (card) => {
-    await apiClient.editFlashcard(card);
+    await flashcardApi.editFlashcard(card);
   };
   const deleteCard = async (id) => {
-    await apiClient.deleteFlashcard(id);
+    await flashcardApi.deleteFlashcard(id);
     window.location.href = "/";
   };
   if (!card.id) {
@@ -258,13 +263,13 @@ const EditCard = () => {
   );
 };
 
-const CreateCard = ({ apiClient }) => {
+const CreateCard = ({ flashcardApi }) => {
   const saveCardAndRedirect = async (card) => {
-    await apiClient.saveFlashcard(card);
+    await flashcardApi.saveFlashcard(card);
     window.location.href = "/";
   };
   const saveCard = async (card) => {
-    await apiClient.saveFlashcard(card);
+    await flashcardApi.saveFlashcard(card);
   };
   const deleteCard = (id) => {
     window.location.href = "/";
@@ -280,15 +285,19 @@ const CreateCard = ({ apiClient }) => {
   );
 };
 
-const Result = ({ cardsToPractice, apiClient, masteredCards }) => {
+const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
   console.log(masteredCards);
   return (
     <div>
       {cardsToPractice.map((flashcard) => {
-        return <ResultFlashcard flashcard={flashcard} apiClient={apiClient} />;
+        return (
+          <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
+        );
       })}
       {masteredCards.map((flashcard) => {
-        return <ResultFlashcard flashcard={flashcard} apiClient={apiClient} />;
+        return (
+          <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
+        );
       })}
     </div>
   );
