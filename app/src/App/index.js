@@ -121,7 +121,7 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
       {/* <header className={styles.header}>
         <h1>{process.env.REACT_APP_TITLE}</h1>
       </header> */}
-      <HeroSection />
+      {!isAuthenticated && <HeroSection />}
       {isAuthenticated && !loading ? (
         <div>
           <h2>Hello, {user.given_name}</h2>
