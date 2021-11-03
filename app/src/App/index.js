@@ -16,6 +16,7 @@ import Flashcards from "../Flashcards";
 import EmptySides from "../Flashcards/EmptySides";
 import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
+import HeroSection from "../HeroSection";
 import Nav from "../Nav";
 import Sidebar from "../Sidebar";
 import flashcardApiClient from "../apiClient/useFlashcardApiClient";
@@ -120,6 +121,7 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
       {/* <header className={styles.header}>
         <h1>{process.env.REACT_APP_TITLE}</h1>
       </header> */}
+      <HeroSection />
       {isAuthenticated && !loading ? (
         <div>
           <h2>Hello, {user.given_name}</h2>
