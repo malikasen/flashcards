@@ -6,12 +6,12 @@ import { Login, Logout } from "../auth/widgets";
 import { Nav, NavLink, Bars, NavMenu, NavBtn } from "./NavbarElements";
 import styles from "./styles.module.scss";
 
-const Navigation = () => (
+const Navigation = ({ toggle }) => (
   <Nav>
     <NavLink to="/" end>
       <h3>Flashcard Master</h3>
     </NavLink>{" "}
-    <Bars />
+    <Bars onClick={toggle} />
     <NavMenu>
       <NavLink to="practice" activeStyle>
         Practice

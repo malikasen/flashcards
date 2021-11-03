@@ -17,6 +17,7 @@ import EmptySides from "../Flashcards/EmptySides";
 import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
 import Nav from "../Nav";
+import Sidebar from "../Sidebar";
 import flashcardApiClient from "../apiClient/useFlashcardApiClient";
 import AuthProvider from "../auth/AuthProvider";
 import useAuth0 from "../auth/useAuth0";
@@ -29,7 +30,6 @@ const App = () => {
   const { isAuthenticated, user } = useAuth0();
   const { loading, userApi } = userApiClient();
   const { loading: flashcardApiLoading, flashcardApi } = flashcardApiClient();
-
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
       userApi.addOrUpdateUser(user);
@@ -37,7 +37,10 @@ const App = () => {
   }, [isAuthenticated, user, loading, userApi]);
   const [flashcards, setFlashcards] = useState([]);
   const [masteredCards, setMasteredCards] = useState([]);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
   const loadFlashcards = React.useCallback(async () => {
     if (!flashcardApiLoading) {
       setFlashcards(await flashcardApi.getFlashcards());
@@ -50,7 +53,8 @@ const App = () => {
   return (
     <>
       <header>
-        <Nav />
+        <Sidebar isOpen={isOpen} toggle={toggle} />
+        <Nav toggle={toggle} />
       </header>
       <main>
         <Routes>
