@@ -5,14 +5,22 @@ import ArrowBackIosSharpIcon from "@mui/icons-material/ArrowBackIosSharp";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { Routes, Route, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useParams,
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 import Flashcards from "../Flashcards";
 import EmptySides from "../Flashcards/EmptySides";
 import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
+import HeroSection from "../HeroSection";
 import Nav from "../Nav";
+import Sidebar from "../Sidebar";
 import flashcardApiClient from "../apiClient/useFlashcardApiClient";
+import AuthProvider from "../auth/AuthProvider";
 import useAuth0 from "../auth/useAuth0";
 import userApiClient from "../auth/useAuthApiClient";
 import { Protected } from "../auth/widgets";
@@ -23,7 +31,6 @@ const App = () => {
   const { isAuthenticated, user } = useAuth0();
   const { loading, userApi } = userApiClient();
   const { loading: flashcardApiLoading, flashcardApi } = flashcardApiClient();
-
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
       userApi.addOrUpdateUser(user);
@@ -31,7 +38,10 @@ const App = () => {
   }, [isAuthenticated, user, loading, userApi]);
   const [flashcards, setFlashcards] = useState([]);
   const [masteredCards, setMasteredCards] = useState([]);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
   const loadFlashcards = React.useCallback(async () => {
     if (!flashcardApiLoading) {
       setFlashcards(await flashcardApi.getFlashcards());
@@ -44,7 +54,8 @@ const App = () => {
   return (
     <>
       <header>
-        <Nav />
+        <Sidebar isOpen={isOpen} toggle={toggle} />
+        <Nav toggle={toggle} />
       </header>
       <main>
         <Routes>
@@ -110,6 +121,7 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
       {/* <header className={styles.header}>
         <h1>{process.env.REACT_APP_TITLE}</h1>
       </header> */}
+      {!isAuthenticated && <HeroSection />}
       {isAuthenticated && !loading ? (
         <div>
           <h2>Hello, {user.given_name}</h2>
@@ -302,4 +314,11 @@ const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
     </div>
   );
 };
-export default App;
+const AppWrapper = () => (
+  <Router>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </Router>
+);
+export default AppWrapper;
