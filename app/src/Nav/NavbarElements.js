@@ -9,6 +9,15 @@ export const Nav = styled.nav`
   justify-content: flex-start;
   padding: 0.5rem calc((100vw - 1000px) / 6);
   z-index: 10;
+  // additional
+  // margin-top: -80px;
+  font-size: 1rem;
+  position: sticky;
+  top: 0;
+
+  @media screen and (max-width: 960px) {
+    transition: 0.8s all ease;
+  }
 `;
 
 export const NavLink = styled(Link)`

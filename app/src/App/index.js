@@ -16,6 +16,7 @@ import Flashcards from "../Flashcards";
 import EmptySides from "../Flashcards/EmptySides";
 import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
+import Footer from "../Footer";
 import HeroSection from "../HeroSection";
 import Nav from "../Nav";
 import Sidebar from "../Sidebar";
@@ -107,6 +108,9 @@ const App = () => {
           />
         </Routes>
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };
