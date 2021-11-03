@@ -38,8 +38,10 @@ export const HeroContent = styled.div`
   position: absolute;
   padding: 8px 24px;
   display: flex;
-  flex-direction; column;
+  flex-direction: column;
   align-items: center;
+  background-color: rgba(121, 113, 126, 0.5);
+  border-radius: 20px;
 `;
 
 export const HeroH1 = styled.h1`
