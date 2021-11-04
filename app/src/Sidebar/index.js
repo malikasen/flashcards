@@ -21,12 +21,9 @@ const Sidebar = ({ isOpen, toggle }) => {
       </Icon>
       <SidebarWrapper>
         <SidebarMenu>
-          <SidebarLink to="practice" onClick={toggle}>
-            Practice
-          </SidebarLink>
-          <SidebarLink to="new-card" onClick={toggle}>
-            New Card
-          </SidebarLink>
+          <SidebarLink to="/">Home</SidebarLink>
+          <SidebarLink to="practice">Practice</SidebarLink>
+          <SidebarLink to="new-card">New Card</SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
           <Auth />
