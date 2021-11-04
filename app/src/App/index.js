@@ -176,19 +176,28 @@ const Practice = ({
   }, [cardNumber, masteredCards]);
   return (
     <>
+      <p>
+        Card number: {cardNumber + 1}/{cardsToPractice.length}
+      </p>
       {showFront && (
-        <Side
-          text={cardsToPractice[cardNumber].front_of_card}
-          toggleSide={toggleSide}
-        />
+        <div>
+          <p>Click on card, to see the back of the card</p>
+          <Side
+            text={cardsToPractice[cardNumber].front_of_card}
+            toggleSide={toggleSide}
+          />
+        </div>
       )}
       {!showFront && (
-        <Side
-          text={cardsToPractice[cardNumber].back_of_card}
-          toggleSide={toggleSide}
-        />
+        <div>
+          <p>Click on card, to see the front of the card</p>
+          <Side
+            text={cardsToPractice[cardNumber].back_of_card}
+            toggleSide={toggleSide}
+          />
+        </div>
       )}
-      <Stack direction="row" spacing={2} className={styles.stack}>
+      <Stack direction="row" spacing={2} className={styles.buttonStack}>
         {cardNumber !== 0 && (
           <Button
             variant="contained"
@@ -210,26 +219,22 @@ const Practice = ({
           </Button>
         )}
       </Stack>
-      <Stack direction="row">
-        {cardNumber === cardsToPractice.length - 1 && (
-          <Button
-            variant="contained"
-            className={styles.stack}
-            onClick={showResult}
-          >
-            Show Results
-          </Button>
-        )}
-      </Stack>
-      <Stack direction="row" spacing={2} className={styles.stack}>
+      <Stack direction="row" spacing={2} className={styles.buttonStack}>
         <Button
           variant="contained"
           className={styles.slideButton}
           id={styles.masteredBtn}
           onClick={onClickMastered}
         >
-          Mastered
+          Mark as mastered
         </Button>
+      </Stack>
+      <Stack direction="row" className={styles.buttonStack}>
+        {cardNumber === cardsToPractice.length - 1 && (
+          <Button variant="contained" onClick={showResult}>
+            Show Results
+          </Button>
+        )}
       </Stack>
     </>
   );
