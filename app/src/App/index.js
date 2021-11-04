@@ -198,26 +198,24 @@ const Practice = ({
         </div>
       )}
       <Stack direction="row" spacing={2} className={styles.buttonStack}>
-        {cardNumber !== 0 && (
-          <Button
-            variant="contained"
-            startIcon={<ArrowBackIosSharpIcon />}
-            className={styles.slideButton}
-            onClick={decrementCard}
-          >
-            Previous
-          </Button>
-        )}
-        {cardNumber !== cardsToPractice.length - 1 && (
-          <Button
-            variant="contained"
-            endIcon={<ArrowForwardIosSharpIcon />}
-            className={styles.slideButton}
-            onClick={incrementCard}
-          >
-            Next
-          </Button>
-        )}
+        <Button
+          variant="contained"
+          startIcon={<ArrowBackIosSharpIcon />}
+          className={styles.slideButton}
+          onClick={decrementCard}
+          disabled={cardNumber === 0}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<ArrowForwardIosSharpIcon />}
+          className={styles.slideButton}
+          onClick={incrementCard}
+          disabled={cardNumber === cardsToPractice.length - 1}
+        >
+          Next
+        </Button>
       </Stack>
       <Stack direction="row" spacing={2} className={styles.buttonStack}>
         <Button
