@@ -3,6 +3,11 @@ import styled from "styled-components";
 
 export const FooterContainer = styled.footer`
   background-color: #101522;
+  //additional
+  // height: 50px;
+  // position: realtive;
+  // bottom: 0;
+  flex-shrink: 0;
 `;
 
 export const FooterWrap = styled.div`

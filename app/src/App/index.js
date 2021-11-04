@@ -53,12 +53,12 @@ const App = () => {
     !loading && loadFlashcards();
   }, [loading, loadFlashcards]);
   return (
-    <>
+    <div id={styles.pageContainer}>
       <header>
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <Nav toggle={toggle} />
       </header>
-      <main>
+      <main id={styles.contentWrap}>
         <Routes>
           <Route
             path="/"
@@ -111,7 +111,7 @@ const App = () => {
       <footer>
         <Footer />
       </footer>
-    </>
+    </div>
   );
 };
 
