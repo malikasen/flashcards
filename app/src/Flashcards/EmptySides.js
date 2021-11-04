@@ -56,7 +56,7 @@ const EmptySides = ({
     onClickDeleteCard(id);
   }, [id, onClickDeleteCard]);
   return (
-    <>
+    <div className={styles.emptySidesContainer}>
       {location.pathname === "/new-card" && (
         <DictionarySearch
           front={front}
@@ -108,7 +108,7 @@ const EmptySides = ({
           ></textarea>
         </Stack>
       </form>
-    </>
+    </div>
   );
 };
 export default EmptySides;

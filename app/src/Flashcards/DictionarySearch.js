@@ -2,6 +2,8 @@ import * as React from "react";
 
 import dictionaryApiClient from "../apiClient/useDictionaryApiClient";
 
+import styles from "./styles.module.scss";
+
 const DictionarySearch = ({ front, setFront, back, setBack }) => {
   const { dictionaryApi } = dictionaryApiClient();
   const getDefinition = async (event) => {
@@ -11,18 +13,24 @@ const DictionarySearch = ({ front, setFront, back, setBack }) => {
   };
   return (
     <>
-      <form onSubmit={getDefinition}>
-        <label htmlFor="definition">Check out dictionary definitions</label>
+      <form onSubmit={getDefinition} className={styles.searchForm}>
+        <label htmlFor="definition" className={styles.searchLabel}>
+          Check out dictionary definitions
+        </label>
         <input
-          id="definition"
+          className={styles.searchField}
           name="defintitionSearch"
           type="text"
           value={front}
           onChange={(e) => setFront(e.target.value)}
-          placeholder="search"
+          placeholder="search for a word"
           required
         ></input>
-        <input type="submit" value="search"></input>
+        <input
+          className={styles.searchButton}
+          type="submit"
+          value="search"
+        ></input>
       </form>
     </>
   );

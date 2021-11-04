@@ -1,3 +1,6 @@
+.emptySidesContainer {
+  margin-bottom: 25px;
+}
 .buttonStack {
   display: flex;
   justify-content: center;
@@ -17,12 +20,63 @@
   vertical-align: middle;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-weight: 500;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.75;
   letter-spacing: 0.02857em;
   text-transform: uppercase;
   padding: 7px 21px;
   color: #1976d2;
+}
+.searchForm {
+  display: flex;
+  justify-content: center;
+  margin: 20px 20px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.searchLabel {
+  font-size: 1.2rem;
+  padding-top: 10px;
+}
+.searchField {
+  border: 1px solid #1976d2;
+  height: 50px;
+  width: 240px;
+  margin-left: 10px;
+  padding-left: 5px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 10px;
+  }
+}
+.searchButton {
+  border-radius: 4px;
+  background: #256ce1;
+  height: 50px;
+  width: 120px;
+  margin-left: 10px;
+  padding: 10px 22px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-top: 10px;
+  }
 }
 .sideList {
   margin-top: 20px !important;
