@@ -90,22 +90,22 @@ const EmptySides = ({
           </Button>
         </Stack>
         <Stack spacing={2} direction="column" className={styles.emptyCardStack}>
-          <input
+          <textarea
             className={styles.emptySide}
             type="text"
             value={front}
             onChange={(e) => setFront(e.target.value)}
             placeholder="front side information goes here"
             required
-          ></input>
-          <input
+          ></textarea>
+          <textarea
             className={styles.emptySide}
             type="text"
             value={back}
             onChange={(e) => setBack(e.target.value)}
             placeholder="back side information goes here"
             required
-          ></input>
+          ></textarea>
         </Stack>
       </form>
     </>
