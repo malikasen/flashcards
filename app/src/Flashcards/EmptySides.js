@@ -23,8 +23,6 @@ const EmptySides = ({
   const [front, setFront] = useState();
   const [back, setBack] = useState();
   const [id, setId] = useState();
-  // const [word, setWord] = useState("");
-  // const [definition, setDefinition] = useState([]);
   const location = useLocation();
 
   // const navigate = useNavigate();
@@ -68,7 +66,7 @@ const EmptySides = ({
         />
       )}
       <form>
-        <Stack spacing={2} direction="row" className={styles.stack}>
+        <Stack spacing={2} direction="row" className={styles.buttonStack}>
           <Button
             variant="outlined"
             startIcon={<DeleteIcon />}
@@ -91,16 +89,18 @@ const EmptySides = ({
             Save and add more
           </Button>
         </Stack>
-        <Stack spacing={2} direction="column" className={styles.stack2}>
+        <Stack spacing={2} direction="column" className={styles.emptyCardStack}>
           <input
-            className={styles.side}
+            className={styles.emptySide}
+            type="text"
             value={front}
             onChange={(e) => setFront(e.target.value)}
             placeholder="front side information goes here"
             required
           ></input>
           <input
-            className={styles.side}
+            className={styles.emptySide}
+            type="text"
             value={back}
             onChange={(e) => setBack(e.target.value)}
             placeholder="back side information goes here"
