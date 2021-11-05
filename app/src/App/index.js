@@ -45,9 +45,11 @@ const App = () => {
   };
   const loadFlashcards = React.useCallback(async () => {
     if (!flashcardApiLoading) {
-      setFlashcards(await flashcardApi.getFlashcards());
+      const flashcards = await flashcardApi.getFlashcards();
+      setFlashcards(flashcards);
+      console.log("flashcards", flashcards);
     }
-  }, [flashcardApi]);
+  }, [flashcardApi, flashcardApiLoading]);
   const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
   React.useEffect(() => {
     !loading && loadFlashcards();
