@@ -122,14 +122,11 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
   }, [loading, loadFlashcards]);
   return (
     <div>
-      {/* <header className={styles.header}>
-        <h1>{process.env.REACT_APP_TITLE}</h1>
-      </header> */}
       {!isAuthenticated && <HeroSection />}
       {isAuthenticated && !loading ? (
-        <div>
-          <h2>Hello, {user.given_name}</h2>
-          <h3>You have {flashcards.length} cards!</h3>
+        <div className={styles.authenticatedHomePageContainer}>
+          <h1>Hello, {user.given_name}</h1>
+          <h2>You have {flashcards.length} cards!</h2>
           <Flashcards flashcards={flashcards} loadFlashcards={loadFlashcards} />
         </div>
       ) : null}
@@ -176,12 +173,16 @@ const Practice = ({
   }, [cardNumber, masteredCards]);
   return (
     <>
-      <p>
-        Card number: {cardNumber + 1}/{cardsToPractice.length}
-      </p>
+      <div className={styles.cardNumberTextContainer}>
+        <p className={styles.cardNumberText}>
+          Card number: {cardNumber + 1}/{cardsToPractice.length}
+        </p>
+      </div>
       {showFront && (
         <div>
-          <p>Click on card, to see the back of the card</p>
+          <div className={styles.clickInstructionsContainer}>
+            <p>Click on card, to see the back of the card</p>
+          </div>
           <Side
             text={cardsToPractice[cardNumber].front_of_card}
             toggleSide={toggleSide}
@@ -190,7 +191,9 @@ const Practice = ({
       )}
       {!showFront && (
         <div>
-          <p>Click on card, to see the front of the card</p>
+          <div className={styles.clickInstructionsContainer}>
+            <p>Click on card, to see the front of the card</p>
+          </div>
           <Side
             text={cardsToPractice[cardNumber].back_of_card}
             toggleSide={toggleSide}

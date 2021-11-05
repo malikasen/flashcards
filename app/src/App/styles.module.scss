@@ -28,6 +28,24 @@ body {
     margin-top: 0;
   }
 }
+.authenticatedHomePageContainer {
+  margin: 30px 30px;
+}
+.cardNumberTextContainer {
+  display: flex;
+  width: 500px;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+.cardNumberTextContainer {
+}
+.clickInstructionsContainer {
+  display: flex;
+  text-align: right;
+  width: 500px;
+  margin-top: 20px;
+  margin-left: 50px;
+}
 .buttonStack {
   display: flex;
   justify-content: center;
