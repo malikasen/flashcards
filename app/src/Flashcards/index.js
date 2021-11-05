@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Flashcard from "./Flashcard";
+import styles from "./styles.module.scss";
 
 const Flashcards = ({ flashcards, loadFlashcards }) => {
   const unlearntFlashcards = flashcards.filter(
@@ -15,20 +16,24 @@ const Flashcards = ({ flashcards, loadFlashcards }) => {
         These cards you haven't learnt yet. Total count:
         {unlearntFlashcards.length}
       </h3>
-      {unlearntFlashcards.map((flashcard) => {
-        return (
-          <Flashcard flashcard={flashcard} loadFlashcards={loadFlashcards} />
-        );
-      })}
+      <div className={styles.homepageFlashcardContainer}>
+        {unlearntFlashcards.map((flashcard) => {
+          return (
+            <Flashcard flashcard={flashcard} loadFlashcards={loadFlashcards} />
+          );
+        })}
+      </div>
       <h3>
         You have mastered these cards! Total count:
         {learntFlashcards.length}
       </h3>
-      {learntFlashcards.map((flashcard) => {
-        return (
-          <Flashcard flashcard={flashcard} loadFlashcards={loadFlashcards} />
-        );
-      })}
+      <div className={styles.homepageFlashcardContainer}>
+        {learntFlashcards.map((flashcard) => {
+          return (
+            <Flashcard flashcard={flashcard} loadFlashcards={loadFlashcards} />
+          );
+        })}
+      </div>
     </>
   );
 };

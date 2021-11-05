@@ -98,6 +98,39 @@
   color: black;
   background-color: white;
 }
+.homepageFlashcardContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px;
+}
+.homepageCardFront {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  padding: 7px 21px;
+  color: black;
+}
+.homepageCardBack {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  padding: 7px 21px;
+  color: black;
+}
+p.homepageCardBack {
+  overflow: auto;
+  height: 200px;
+}
 .sideList {
   margin-top: 20px !important;
   margin-bottom: 20px !important;
