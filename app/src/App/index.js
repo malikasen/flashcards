@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import ArrowBackIosSharpIcon from "@mui/icons-material/ArrowBackIosSharp";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
@@ -10,6 +10,7 @@ import {
   Route,
   useParams,
   BrowserRouter as Router,
+  useNavigate,
 } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
@@ -45,9 +46,10 @@ const App = () => {
   };
   const loadFlashcards = React.useCallback(async () => {
     if (!flashcardApiLoading) {
-      const flashcards = await flashcardApi.getFlashcards();
+      const flashcards = await flashcardApi
+        .getFlashcards()
+        .catch((error) => console.log("console_error", error));
       setFlashcards(flashcards);
-      console.log("flashcards", flashcards);
     }
   }, [flashcardApi, flashcardApiLoading]);
   const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
@@ -145,8 +147,12 @@ const Practice = ({
   const [cardsToPractice, setCardsToPractice] = useState(
     flashcards.filter((card) => card.is_learnt === false),
   );
+  const navigate = useNavigate();
   const [cardNumber, setCardNumber] = useState(0);
   const [showFront, setShowFront] = useState(true);
+  useEffect(() => {
+    setMasteredCards([]);
+  }, []);
   const toggleSide = useCallback(() => {
     setShowFront(!showFront);
   }, [showFront]);
@@ -165,12 +171,14 @@ const Practice = ({
     }
   }, [cardNumber]);
   const showResult = () => {
-    window.location.href = "/result";
+    // window.location.href = "/result";
+    navigate("/result");
   };
   const onClickMastered = useCallback(async () => {
     const currentCard = cardsToPractice[cardNumber];
     await flashcardApi.editIsLearnt(currentCard);
     console.log(currentCard);
+    currentCard.is_learnt = true;
     setMasteredCards([...masteredCards, currentCard]);
   }, [cardNumber, masteredCards]);
   return (
@@ -313,11 +321,13 @@ const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
   console.log(masteredCards);
   return (
     <div>
+      <h2>NOT!!! mastered cards</h2>
       {cardsToPractice.map((flashcard) => {
         return (
           <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
         );
       })}
+      <h2>Mastered cards</h2>
       {masteredCards.map((flashcard) => {
         return (
           <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />

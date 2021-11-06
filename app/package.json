@@ -34,6 +34,7 @@
     "@emotion/styled": "^11.3.0",
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.0.4",
+    "@mui/lab": "^5.0.0-alpha.53",
     "@mui/material": "^5.0.4",
     "history": "^5.0.1",
     "parse-full-name": "^1.2.6",
