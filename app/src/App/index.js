@@ -177,10 +177,12 @@ const Practice = ({
   const onClickMastered = useCallback(async () => {
     const currentCard = cardsToPractice[cardNumber];
     await flashcardApi.editIsLearnt(currentCard);
-    console.log(currentCard);
     currentCard.is_learnt = true;
-    setMasteredCards([...masteredCards, currentCard]);
+    if (!masteredCards.includes(currentCard)) {
+      setMasteredCards([...masteredCards, currentCard]);
+    }
   }, [cardNumber, masteredCards]);
+  console.log(masteredCards);
   return (
     <>
       <div className={styles.cardNumberTextContainer}>
