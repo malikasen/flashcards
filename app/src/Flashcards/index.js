@@ -46,7 +46,7 @@ const Flashcards = ({ flashcards, loadFlashcards }) => {
             </Box>
           </div>
           <TabPanel value={"1"} index={0}>
-            <div className="greetingContainer">
+            <div className={styles.greetingContainer}>
               <p>Total count: {unlearntFlashcards.length}</p>
             </div>
             <div className={styles.homepageFlashcardContainer}>

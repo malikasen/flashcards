@@ -111,9 +111,7 @@ const App = () => {
           />
         </Routes>
       </main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 };
