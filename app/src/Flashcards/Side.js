@@ -1,22 +1,19 @@
 import * as React from "react";
 
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-
 import styles from "./styles.module.scss";
 
 const Side = ({ text, toggleSide }) => {
   return (
-    <Stack spacing={2} direction="row" className={styles.stack}>
-      <Button
+    <div className={styles.practiceCardContainer}>
+      <button
         variant="outlined"
         size="large"
-        className={styles.side}
+        className={styles.practiceCard}
         onClick={toggleSide}
       >
         {text}
-      </Button>
-    </Stack>
+      </button>
+    </div>
   );
 };
 export default Side;

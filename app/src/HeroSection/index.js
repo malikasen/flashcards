@@ -36,6 +36,8 @@ const HeroSection = () => {
               onClick={loginWithRedirect}
               onMouseEnter={onHover}
               onMouseLeave={onHover}
+              primary="true"
+              dark="true"
             >
               Get started {hover ? <ArrowForward /> : <ArrowRight />}
             </Button>

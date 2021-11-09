@@ -1,41 +1,147 @@
-.stack {
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+.emptySidesContainer {
+  margin-bottom: 25px;
+}
+.buttonStack {
   display: flex;
   justify-content: center;
 }
-.stack2 {
+.emptyCardStack {
   display: flex;
   align-items: center;
 }
-.side {
-  min-height: 300px !important;
-  min-width: 450px !important;
-  margin-top: 20px !important;
-  margin-bottom: 20px !important;
+.emptySide {
+  min-height: 300px;
+  min-width: 450px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   border: 1px solid #1976d2;
-  height: 300px;
-  width: 450px;
   text-align: center;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  display: table-cell;
+  vertical-align: middle;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 500;
-  font-size: 0.9375rem;
+  font-size: 1.5rem;
   line-height: 1.75;
   letter-spacing: 0.02857em;
-  text-transform: uppercase;
   padding: 7px 21px;
-  color: #1976d2;
+  color: black;
+}
+.searchForm {
+  display: flex;
+  justify-content: center;
+  margin: 20px 20px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.searchLabel {
+  font-size: 1.2rem;
+  padding-top: 10px;
+}
+.searchField {
+  border: 1px solid #1976d2;
+  height: 50px;
+  width: 240px;
+  margin-left: 10px;
+  padding-left: 5px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 10px;
+  }
+}
+.searchButton {
+  border-radius: 4px;
+  background: #256ce1;
+  height: 50px;
+  width: 120px;
+  margin-left: 10px;
+  padding: 10px 22px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-top: 10px;
+  }
+}
+.practiceCardContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 20px;
+}
+.practiceCard {
+  min-height: 300px;
+  min-width: 450px !important;
+  max-width: 950px !important;
+  white-space: normal;
+  border: 1px solid #1976d2;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  padding: 7px 21px;
+  color: black;
+  background-color: white;
+}
+.homepageFlashcardContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px;
+}
+.homepageCardFront {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  padding: 7px 21px;
+  color: black;
+}
+.homepageCardBack {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  padding: 7px 21px;
+  color: black;
+}
+p.homepageCardBack {
+  overflow: auto;
+  height: 200px;
 }
 .sideList {
   margin-top: 20px !important;
   margin-bottom: 20px !important;
   border: 1px solid #1976d2;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 500;
-  font-size: 0.9375rem;
+  font-size: 1.3rem;
   line-height: 1.75;
   letter-spacing: 0.02857em;
-  text-transform: uppercase;
   padding: 7px 21px;
-  color: #1976d2;
+  color: black;
 }
 .greenStack {
   background-color: rgb(147, 231, 147);

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import ArrowBackIosSharpIcon from "@mui/icons-material/ArrowBackIosSharp";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
@@ -10,12 +10,14 @@ import {
   Route,
   useParams,
   BrowserRouter as Router,
+  useNavigate,
 } from "react-router-dom";
 
 import Flashcards from "../Flashcards";
 import EmptySides from "../Flashcards/EmptySides";
 import ResultFlashcard from "../Flashcards/ResultFlashcard";
 import Side from "../Flashcards/Side";
+import Footer from "../Footer";
 import HeroSection from "../HeroSection";
 import Nav from "../Nav";
 import Sidebar from "../Sidebar";
@@ -44,20 +46,23 @@ const App = () => {
   };
   const loadFlashcards = React.useCallback(async () => {
     if (!flashcardApiLoading) {
-      setFlashcards(await flashcardApi.getFlashcards());
+      const flashcards = await flashcardApi
+        .getFlashcards()
+        .catch((error) => console.log("console_error", error));
+      setFlashcards(flashcards);
     }
-  }, [flashcardApi]);
+  }, [flashcardApi, flashcardApiLoading]);
   const cardsToPractice = flashcards.filter((card) => card.is_learnt === false);
   React.useEffect(() => {
     !loading && loadFlashcards();
   }, [loading, loadFlashcards]);
   return (
-    <>
+    <div id={styles.pageContainer}>
       <header>
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <Nav toggle={toggle} />
       </header>
-      <main>
+      <main id={styles.contentWrap}>
         <Routes>
           <Route
             path="/"
@@ -107,7 +112,10 @@ const App = () => {
           />
         </Routes>
       </main>
-    </>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
   );
 };
 
@@ -118,14 +126,11 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
   }, [loading, loadFlashcards]);
   return (
     <div>
-      {/* <header className={styles.header}>
-        <h1>{process.env.REACT_APP_TITLE}</h1>
-      </header> */}
       {!isAuthenticated && <HeroSection />}
       {isAuthenticated && !loading ? (
-        <div>
-          <h2>Hello, {user.given_name}</h2>
-          <h3>You have {flashcards.length} cards!</h3>
+        <div className={styles.authenticatedHomePageContainer}>
+          <h1>Hello, {user.given_name}</h1>
+          <h2>You have {flashcards.length} cards!</h2>
           <Flashcards flashcards={flashcards} loadFlashcards={loadFlashcards} />
         </div>
       ) : null}
@@ -142,8 +147,12 @@ const Practice = ({
   const [cardsToPractice, setCardsToPractice] = useState(
     flashcards.filter((card) => card.is_learnt === false),
   );
+  const navigate = useNavigate();
   const [cardNumber, setCardNumber] = useState(0);
   const [showFront, setShowFront] = useState(true);
+  useEffect(() => {
+    setMasteredCards([]);
+  }, []);
   const toggleSide = useCallback(() => {
     setShowFront(!showFront);
   }, [showFront]);
@@ -162,70 +171,83 @@ const Practice = ({
     }
   }, [cardNumber]);
   const showResult = () => {
-    window.location.href = "/result";
+    // window.location.href = "/result";
+    navigate("/result");
   };
   const onClickMastered = useCallback(async () => {
     const currentCard = cardsToPractice[cardNumber];
     await flashcardApi.editIsLearnt(currentCard);
-    console.log(currentCard);
-    setMasteredCards([...masteredCards, currentCard]);
+    currentCard.is_learnt = true;
+    if (!masteredCards.includes(currentCard)) {
+      setMasteredCards([...masteredCards, currentCard]);
+    }
   }, [cardNumber, masteredCards]);
+  console.log(masteredCards);
   return (
     <>
+      <div className={styles.cardNumberTextContainer}>
+        <p className={styles.cardNumberText}>
+          Card number: {cardNumber + 1}/{cardsToPractice.length}
+        </p>
+      </div>
       {showFront && (
-        <Side
-          text={cardsToPractice[cardNumber].front_of_card}
-          toggleSide={toggleSide}
-        />
+        <div>
+          <div className={styles.clickInstructionsContainer}>
+            <p>Click on card, to see the back of the card</p>
+          </div>
+          <Side
+            text={cardsToPractice[cardNumber].front_of_card}
+            toggleSide={toggleSide}
+          />
+        </div>
       )}
       {!showFront && (
-        <Side
-          text={cardsToPractice[cardNumber].back_of_card}
-          toggleSide={toggleSide}
-        />
+        <div>
+          <div className={styles.clickInstructionsContainer}>
+            <p>Click on card, to see the front of the card</p>
+          </div>
+          <Side
+            text={cardsToPractice[cardNumber].back_of_card}
+            toggleSide={toggleSide}
+          />
+        </div>
       )}
-      <Stack direction="row" spacing={2} className={styles.stack}>
-        {cardNumber !== 0 && (
-          <Button
-            variant="contained"
-            startIcon={<ArrowBackIosSharpIcon />}
-            className={styles.slideButton}
-            onClick={decrementCard}
-          >
-            Previous
-          </Button>
-        )}
-        {cardNumber !== cardsToPractice.length - 1 && (
-          <Button
-            variant="contained"
-            endIcon={<ArrowForwardIosSharpIcon />}
-            className={styles.slideButton}
-            onClick={incrementCard}
-          >
-            Next
-          </Button>
-        )}
+      <Stack direction="row" spacing={2} className={styles.buttonStack}>
+        <Button
+          variant="contained"
+          startIcon={<ArrowBackIosSharpIcon />}
+          className={styles.slideButton}
+          onClick={decrementCard}
+          disabled={cardNumber === 0}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="contained"
+          endIcon={<ArrowForwardIosSharpIcon />}
+          className={styles.slideButton}
+          onClick={incrementCard}
+          disabled={cardNumber === cardsToPractice.length - 1}
+        >
+          Next
+        </Button>
       </Stack>
-      <Stack direction="row">
-        {cardNumber === cardsToPractice.length - 1 && (
-          <Button
-            variant="contained"
-            className={styles.stack}
-            onClick={showResult}
-          >
-            Show Results
-          </Button>
-        )}
-      </Stack>
-      <Stack direction="row" spacing={2} className={styles.stack}>
+      <Stack direction="row" spacing={2} className={styles.buttonStack}>
         <Button
           variant="contained"
           className={styles.slideButton}
           id={styles.masteredBtn}
           onClick={onClickMastered}
         >
-          Mastered
+          Mark as mastered
         </Button>
+      </Stack>
+      <Stack direction="row" className={styles.buttonStack}>
+        {cardNumber === cardsToPractice.length - 1 && (
+          <Button variant="contained" onClick={showResult}>
+            Show Results
+          </Button>
+        )}
       </Stack>
     </>
   );
@@ -301,11 +323,13 @@ const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
   console.log(masteredCards);
   return (
     <div>
+      <h2>NOT!!! mastered cards</h2>
       {cardsToPractice.map((flashcard) => {
         return (
           <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
         );
       })}
+      <h2>Mastered cards</h2>
       {masteredCards.map((flashcard) => {
         return (
           <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
