@@ -103,7 +103,6 @@ const App = () => {
             element={
               <Protected
                 component={Result}
-                // flashcards={flashcards}
                 cardsToPractice={cardsToPractice}
                 flashcardApi={flashcardApi}
                 masteredCards={masteredCards}
@@ -112,9 +111,7 @@ const App = () => {
           />
         </Routes>
       </main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 };
@@ -129,8 +126,12 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
       {!isAuthenticated && <HeroSection />}
       {isAuthenticated && !loading ? (
         <div className={styles.authenticatedHomePageContainer}>
-          <h1>Hello, {user.given_name}</h1>
-          <h2>You have {flashcards.length} cards!</h2>
+          <div className={styles.greetingContainer}>
+            <p>
+              Hello, {user.given_name}! You have {flashcards.length} cards in
+              your collection.
+            </p>
+          </div>
           <Flashcards flashcards={flashcards} loadFlashcards={loadFlashcards} />
         </div>
       ) : null}
@@ -171,7 +172,6 @@ const Practice = ({
     }
   }, [cardNumber]);
   const showResult = () => {
-    // window.location.href = "/result";
     navigate("/result");
   };
   const onClickMastered = useCallback(async () => {
@@ -193,7 +193,9 @@ const Practice = ({
       {showFront && (
         <div>
           <div className={styles.clickInstructionsContainer}>
-            <p>Click on card, to see the back of the card</p>
+            <p className={styles.clickInstructions}>
+              Click on card, to see the back of the card
+            </p>
           </div>
           <Side
             text={cardsToPractice[cardNumber].front_of_card}
@@ -239,12 +241,16 @@ const Practice = ({
           id={styles.masteredBtn}
           onClick={onClickMastered}
         >
-          Mark as mastered
+          Mark as Learnt
         </Button>
       </Stack>
       <Stack direction="row" className={styles.buttonStack}>
         {cardNumber === cardsToPractice.length - 1 && (
-          <Button variant="contained" onClick={showResult}>
+          <Button
+            variant="contained"
+            className={styles.toResultsBtn}
+            onClick={showResult}
+          >
             Show Results
           </Button>
         )}
@@ -323,18 +329,28 @@ const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
   console.log(masteredCards);
   return (
     <div>
-      <h2>NOT!!! mastered cards</h2>
-      {cardsToPractice.map((flashcard) => {
-        return (
-          <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
-        );
-      })}
-      <h2>Mastered cards</h2>
-      {masteredCards.map((flashcard) => {
-        return (
-          <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
-        );
-      })}
+      <p className={styles.resultCategories}>Not learnt cards</p>
+      <div className={styles.resultFlashcardContainer}>
+        {cardsToPractice.map((flashcard) => {
+          return (
+            <ResultFlashcard
+              flashcard={flashcard}
+              flashcardApi={flashcardApi}
+            />
+          );
+        })}
+      </div>
+      <p className={styles.resultCategories}>Learnt cards</p>
+      <div className={styles.resultFlashcardContainer}>
+        {masteredCards.map((flashcard) => {
+          return (
+            <ResultFlashcard
+              flashcard={flashcard}
+              flashcardApi={flashcardApi}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

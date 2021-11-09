@@ -15,7 +15,7 @@ const DictionarySearch = ({ front, setFront, back, setBack }) => {
     <>
       <form onSubmit={getDefinition} className={styles.searchForm}>
         <label htmlFor="definition" className={styles.searchLabel}>
-          Check out dictionary definitions
+          <p>Check out dictionary definitions</p>
         </label>
         <input
           className={styles.searchField}

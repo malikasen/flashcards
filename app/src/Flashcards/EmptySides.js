@@ -25,17 +25,12 @@ const EmptySides = ({
   const [id, setId] = useState();
   const location = useLocation();
 
-  // const navigate = useNavigate();
   useEffect(() => {
     setId(cardId);
     setFront(front_of_card);
     setBack(back_of_card);
   }, [cardId, front_of_card, back_of_card]);
-  // const deleteCard = async () => {
-  //   await apiClient.deleteFlashcard(id);
-  //   // navigate("/");
-  //   window.location.href = "/";
-  // };
+
   const card = useMemo(() => {
     return {
       id,
@@ -68,21 +63,21 @@ const EmptySides = ({
       <form>
         <Stack spacing={2} direction="row" className={styles.buttonStack}>
           <Button
-            variant="outlined"
+            variant="contained"
             startIcon={<DeleteIcon />}
             onClick={deleteCardWrapper}
           >
             Delete
           </Button>
           <Button
-            variant="outlined"
+            variant="contained"
             startIcon={<SaveAltIcon />}
             onClick={onClickSaveWrapper}
           >
             Save
           </Button>
           <Button
-            variant="outlined"
+            variant="contained"
             startIcon={<AddToPhotosIcon />}
             onClick={saveAndAddCardWrapper}
           >

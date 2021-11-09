@@ -22,7 +22,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterWrap>
-        <FooterLinksContainer>
+        {/* <FooterLinksContainer>
           <FooterLinksWrapper>
             <FooterLinkItems>
               <FooterLinkTitle>About us</FooterLinkTitle>
@@ -33,17 +33,7 @@ const Footer = () => {
               <FooterLink to="/">About us</FooterLink>
             </FooterLinkItems>
           </FooterLinksWrapper>
-          {/* <FooterLinksWrapper>
-            <FooterLinkItems>
-              <FooterLinkTitle>About us</FooterLinkTitle>
-              <FooterLink to="/">About us</FooterLink>
-            </FooterLinkItems>
-            <FooterLinkItems>
-              <FooterLinkTitle>About us</FooterLinkTitle>
-              <FooterLink to="/">About us</FooterLink>
-            </FooterLinkItems>
-          </FooterLinksWrapper> */}
-        </FooterLinksContainer>
+        </FooterLinksContainer> */}
         <SocialMedia>
           <SocialMediaWrap>
             <SocialLogo to="/">Flashcard Master</SocialLogo>
