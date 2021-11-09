@@ -129,10 +129,10 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
       {isAuthenticated && !loading ? (
         <div className={styles.authenticatedHomePageContainer}>
           <div className={styles.greetingContainer}>
-            <h1>
+            <p>
               Hello, {user.given_name}! You have {flashcards.length} cards in
               your collection.
-            </h1>
+            </p>
           </div>
           <Flashcards flashcards={flashcards} loadFlashcards={loadFlashcards} />
         </div>
@@ -243,7 +243,7 @@ const Practice = ({
           id={styles.masteredBtn}
           onClick={onClickMastered}
         >
-          Mark as mastered
+          Mark as Learnt
         </Button>
       </Stack>
       <Stack direction="row" className={styles.buttonStack}>
@@ -331,18 +331,28 @@ const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
   console.log(masteredCards);
   return (
     <div>
-      <h2>NOT!!! mastered cards</h2>
-      {cardsToPractice.map((flashcard) => {
-        return (
-          <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
-        );
-      })}
-      <h2>Mastered cards</h2>
-      {masteredCards.map((flashcard) => {
-        return (
-          <ResultFlashcard flashcard={flashcard} flashcardApi={flashcardApi} />
-        );
-      })}
+      <p className={styles.resultCategories}>Not learnt cards</p>
+      <div className={styles.resultFlashcardContainer}>
+        {cardsToPractice.map((flashcard) => {
+          return (
+            <ResultFlashcard
+              flashcard={flashcard}
+              flashcardApi={flashcardApi}
+            />
+          );
+        })}
+      </div>
+      <p className={styles.resultCategories}>Learnt cards</p>
+      <div className={styles.resultFlashcardContainer}>
+        {masteredCards.map((flashcard) => {
+          return (
+            <ResultFlashcard
+              flashcard={flashcard}
+              flashcardApi={flashcardApi}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Quicksand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Quicksand&display=swap');
 * {
   font-family: 'Montserat', sans-serif;
   box-sizing: border-box;
@@ -36,6 +35,7 @@ body {
   font-size: 1.5rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
+  margin-bottom: 16px;
 }
 .cardNumberTextContainer {
   display: flex;
@@ -91,7 +91,17 @@ body {
     }
   }
 }
-
+.resultFlashcardContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.resultCategories {
+  color: #04444f;
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+}
 #masteredBtn {
   background-color: rgb(3, 202, 3);
 }
