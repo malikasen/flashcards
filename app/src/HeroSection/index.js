@@ -30,7 +30,7 @@ const HeroSection = () => {
         </HeroBg>
         <HeroContent>
           <HeroH1>Learning Words Made Easy</HeroH1>
-          <HeroP>Start learning words today with the Flashcard Master</HeroP>
+          <HeroP>Start learning words today with Pomni</HeroP>
           <HeroBtnWrapper>
             <Button
               onClick={loginWithRedirect}

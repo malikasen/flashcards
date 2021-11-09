@@ -21,15 +21,26 @@ const makeApi = (accessToken) => {
     return result;
   };
 
-  const _fetch = (url, options) =>
-    fetch(url, {
+  // const _fetch = (url, options) =>
+  //   fetch(url, {
+  //     ...options,
+  //     headers: {
+  //       ...(options?.headers ?? {}),
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   });
+  const _fetch = (url, options) => {
+    const updatedUrl =
+      process.env.NODE_ENV === "test" ? `http://test.com${url}` : url;
+
+    return fetch(updatedUrl, {
       ...options,
       headers: {
         ...(options?.headers ?? {}),
         Authorization: `Bearer ${accessToken}`,
       },
     });
-
+  };
   return actions;
 };
 

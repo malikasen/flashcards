@@ -1,10 +1,10 @@
-# FlashcardMaster
+# Pomni
 <!-- ![](/readmeAssets/logo.png) -->
 # Overview
 
-Flashcard Master is an application to learn words using flashcards where users can create, read, edit, and delete flashcards!
+Pomni is an application to learn words using flashcards where users can create, read, edit, and delete flashcards! "Pomni" is a Russian word for "remember".
 
-> https://flashcard-master.herokuapp.com/
+> https://pomni.herokuapp.com/
 
 Demo:
 
@@ -24,8 +24,8 @@ Frameworks
 - Node.js
 
 ## Installation
-To install this app, please install the project dependencies and run it locally. Flashcard Master is hosted on: 
-> [Heroku](https://flashcard-master.herokuapp.com/).
+To install this app, please install the project dependencies and run it locally. Pomni is hosted on: 
+> [Heroku](https://pomni.herokuapp.com/).
 
 1. Clone the repo
 2. Start Docker
