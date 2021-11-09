@@ -61,8 +61,8 @@ const Flashcards = ({ flashcards, loadFlashcards }) => {
             </div>
           </TabPanel>
           <TabPanel value={"2"} index={1}>
-            <div className="greetingContainer">
-              <h3>Total count: {learntFlashcards.length}</h3>
+            <div className={styles.greetingContainer}>
+              <p>Total count: {learntFlashcards.length}</p>
             </div>
             <div className={styles.homepageFlashcardContainer}>
               {learntFlashcards.map((flashcard) => {
