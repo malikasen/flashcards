@@ -31,17 +31,24 @@ const Flashcards = ({ flashcards, loadFlashcards }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="Not Learnt Cards" {...a11yProps(0)} value="1" />
-              <Tab label="Learnt Cards" {...a11yProps(1)} value="2" />
-            </TabList>
-          </Box>
+          <div className={styles.homepageTabs}>
+            <Box
+              sx={{ borderBottom: 1, borderColor: "divider" }}
+              className={styles.homepageTabs}
+            >
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
+                <Tab label="Not Learnt Cards" {...a11yProps(0)} value="1" />
+                <Tab label="Learnt Cards" {...a11yProps(1)} value="2" />
+              </TabList>
+            </Box>
+          </div>
           <TabPanel value={"1"} index={0}>
-            <h3>
-              These cards you haven't learnt yet. Total count:
-              {unlearntFlashcards.length}
-            </h3>
+            <div className="greetingContainer">
+              <h3>Total count: {unlearntFlashcards.length}</h3>
+            </div>
             <div className={styles.homepageFlashcardContainer}>
               {unlearntFlashcards.map((flashcard) => {
                 return (
@@ -54,10 +61,9 @@ const Flashcards = ({ flashcards, loadFlashcards }) => {
             </div>
           </TabPanel>
           <TabPanel value={"2"} index={1}>
-            <h3>
-              You have mastered these cards! Total count:
-              {learntFlashcards.length}
-            </h3>
+            <div className="greetingContainer">
+              <h3>Total count: {learntFlashcards.length}</h3>
+            </div>
             <div className={styles.homepageFlashcardContainer}>
               {learntFlashcards.map((flashcard) => {
                 return (
