@@ -36,10 +36,8 @@ const Footer = () => {
         </FooterLinksContainer> */}
         <SocialMedia>
           <SocialMediaWrap>
-            <SocialLogo to="/">Flashcard Master</SocialLogo>
-            <WebsiteRights>
-              Flashcard Master © {new Date().getFullYear()}
-            </WebsiteRights>
+            <SocialLogo to="/">Pomni</SocialLogo>
+            <WebsiteRights>Pomni © {new Date().getFullYear()}</WebsiteRights>
             <SocialIcons>
               <SocialIconLink
                 href="https://github.com/malikasen"

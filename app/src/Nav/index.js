@@ -9,7 +9,7 @@ import styles from "./styles.module.scss";
 const Navigation = ({ toggle }) => (
   <Nav>
     <NavLink to="/" end>
-      <h3 className={styles.appName}>Flashcard Master</h3>
+      <h3 className={styles.appName}>Pomni</h3>
     </NavLink>{" "}
     <Bars onClick={toggle} />
     <NavMenu>

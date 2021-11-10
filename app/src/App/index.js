@@ -182,7 +182,6 @@ const Practice = ({
       setMasteredCards([...masteredCards, currentCard]);
     }
   }, [cardNumber, masteredCards]);
-  console.log(masteredCards);
   return (
     <>
       <div className={styles.cardNumberTextContainer}>
@@ -326,7 +325,6 @@ const CreateCard = ({ flashcardApi }) => {
 };
 
 const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
-  console.log(masteredCards);
   return (
     <div>
       <p className={styles.resultCategories}>Not learnt cards</p>
