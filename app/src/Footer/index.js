@@ -2,14 +2,11 @@ import React from "react";
 
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 
+import logo from "../images/Pomni-logos-transparent-rectangular.png";
+
 import {
   FooterContainer,
   FooterWrap,
-  FooterLinksContainer,
-  FooterLinksWrapper,
-  FooterLinkItems,
-  FooterLinkTitle,
-  FooterLink,
   SocialMedia,
   SocialMediaWrap,
   SocialLogo,
@@ -17,6 +14,7 @@ import {
   SocialIcons,
   SocialIconLink,
 } from "./FooterElements";
+import styles from "./styles.module.scss";
 
 const Footer = () => {
   return (
@@ -36,7 +34,9 @@ const Footer = () => {
         </FooterLinksContainer> */}
         <SocialMedia>
           <SocialMediaWrap>
-            <SocialLogo to="/">Pomni</SocialLogo>
+            <SocialLogo to="/">
+              <img className={styles.logo} src={logo} alt="Pomni logo"></img>
+            </SocialLogo>
             <WebsiteRights>Pomni © {new Date().getFullYear()}</WebsiteRights>
             <SocialIcons>
               <SocialIconLink

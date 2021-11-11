@@ -33,14 +33,14 @@ export const NavLink = styled(Link)`
   white-space: nowrap;
 
   &.active {
-    color: #6b0f9e;
-    border-bottom: solid #6b0f9e;
+    color: #f2ed01;
+    border-bottom: solid #f2ed01;
   }
 `;
 
 export const Bars = styled(FaBars)`
   display: none;
-  color: #fff;
+  color: #f2ed01;
 
   @media screen and (max-width: 768px) {
     display: block;

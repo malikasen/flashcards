@@ -1,11 +1,11 @@
 .authBtn {
   border-radius: 4px;
-  background: #1976d2;
+  background: #f2ed01;
   font-size: 1.2rem;
   height: 50px;
   width: 120px;
   padding: 10px 22px;
-  color: #fff;
+  color: #010606;
   border: none;
   outline: none;
   cursor: pointer;
@@ -15,7 +15,7 @@
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: #010606;
+    background: #1976d2;
+    color: #fff;
   }
 }
