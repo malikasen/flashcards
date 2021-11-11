@@ -94,6 +94,7 @@ const useFlashcardApiClient = () => {
 
   React.useEffect(() => {
     console.log("isAuthenticated", isAuthenticated);
+
     if (isAuthenticated) {
       (async () => {
         try {

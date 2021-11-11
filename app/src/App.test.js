@@ -23,27 +23,53 @@ jest.mock("@auth0/auth0-react", () => {
   };
 });
 
-describe("<App />", () => {
-  beforeEach(() => {
-    console.log("inside before each");
-    fetchMock.mockResponse((req) => {
-      console.log("req", req);
-      if (req.url === "/api/flashcards") {
-        return Promise.resolve({
-          body: JSON.stringify([
+jest.mock('./apiClient/useFlashcardApiClient', () => {
+  return () => {
+    console.log("inside mocked apiClient")
+    return {
+      loading: false,
+      error: null,
+      foo: 'bar',
+      flashcardApi: {
+        bazz: 'buzz',
+        getFlashcards: () => {
+          const cards = [
             {
               id: 1,
               is_learnt: false,
               front_of_card: "hello i am the front",
               back_of_card: "hello i am the back",
             },
-          ]),
-        });
-      }
-      if (req.url === "/api/users") {
-        return Promise.resolve({ body: JSON.stringify([]) });
-      }
-    });
+          ]
+          console.log("cards:", cards)
+          return Promise.resolve(cards);
+        },
+      },
+    }
+  }
+})
+
+describe("<App />", () => {
+  beforeEach(() => {
+    console.log("inside before each");
+    // fetchMock.mockResponse((req) => {
+    //   console.log("req", req);
+    //   if (req.url === "/api/flashcards") {
+    //     return Promise.resolve({
+    //       body: JSON.stringify([
+    //         {
+    //           id: 1,
+    //           is_learnt: false,
+    //           front_of_card: "hello i am the front",
+    //           back_of_card: "hello i am the back",
+    //         },
+    //       ]),
+    //     });
+    //   }
+    //   if (req.url === "/api/users") {
+    //     return Promise.resolve({ body: JSON.stringify([]) });
+    //   }
+    // });
   });
   it("App renders NavLink with text 'New Card'", () => {
     const { queryAllByText } = render(<App />);

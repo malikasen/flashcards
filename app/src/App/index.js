@@ -33,6 +33,7 @@ const App = () => {
   const { isAuthenticated, user } = useAuth0();
   const { loading, userApi } = userApiClient();
   const { loading: flashcardApiLoading, flashcardApi } = flashcardApiClient();
+  console.log("flashcardApi:", flashcardApi)
   React.useEffect(() => {
     if (isAuthenticated && !loading) {
       userApi.addOrUpdateUser(user);
@@ -45,6 +46,7 @@ const App = () => {
     setIsOpen(!isOpen);
   };
   const loadFlashcards = React.useCallback(async () => {
+    console.log("flashcardApiLoading:", flashcardApiLoading)
     if (!flashcardApiLoading) {
       const flashcards = await flashcardApi
         .getFlashcards()
@@ -57,6 +59,7 @@ const App = () => {
   React.useEffect(() => {
     !loading && loadFlashcards();
   }, [loading, loadFlashcards]);
+  console.log("just before the return statement")
   return (
     <div id={styles.pageContainer}>
       <header>
