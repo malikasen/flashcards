@@ -41,6 +41,9 @@ body {
   display: flex;
   width: 500px;
   margin-left: 50px;
+  @media screen and (max-width: 768px) {
+    margin-left: 0px;
+  }
 }
 .cardNumberText {
   color: #04444f;
@@ -54,6 +57,9 @@ body {
   width: 500px;
   margin-top: 20px;
   margin-left: 50px;
+  @media screen and (max-width: 768px) {
+    margin-left: 0px;
+  }
 }
 .clickInstructions {
   color: #04444f;
