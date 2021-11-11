@@ -13,12 +13,8 @@ const Navigation = ({ toggle }) => (
     </NavLink>{" "}
     <Bars onClick={toggle} />
     <NavMenu>
-      <NavLink to="practice" activeStyle>
-        Practice
-      </NavLink>
-      <NavLink to="new-card" activeStyle>
-        New card
-      </NavLink>
+      <NavLink to="practice">Practice</NavLink>
+      <NavLink to="new-card">New card</NavLink>
     </NavMenu>
     <NavBtn>
       <Auth />

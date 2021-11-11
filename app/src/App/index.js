@@ -49,6 +49,7 @@ const App = () => {
       const flashcards = await flashcardApi
         .getFlashcards()
         .catch((error) => console.log("console_error", error));
+      console.log("flashcards promise", flashcards);
       setFlashcards(flashcards);
     }
   }, [flashcardApi, flashcardApiLoading]);
@@ -121,6 +122,7 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
   React.useEffect(() => {
     !loading && loadFlashcards();
   }, [loading, loadFlashcards]);
+  console.log("flashcards array", flashcards);
   return (
     <div>
       {!isAuthenticated && <HeroSection />}
