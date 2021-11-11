@@ -127,7 +127,7 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
     <div>
       {!isAuthenticated && <HeroSection />}
       {isAuthenticated && !loading ? (
-        <div className={styles.authenticatedHomePageContainer}>
+        <div className={styles.authenticatedPageContainer}>
           <div className={styles.greetingContainer}>
             <p>
               Hello, {user.given_name}! You have {flashcards.length} cards in
@@ -185,7 +185,7 @@ const Practice = ({
     }
   }, [cardNumber, masteredCards]);
   return (
-    <>
+    <div className={styles.authenticatedPageContainer}>
       <div className={styles.cardNumberTextContainer}>
         <p className={styles.cardNumberText}>
           Card number: {cardNumber + 1}/{cardsToPractice.length}
@@ -256,7 +256,7 @@ const Practice = ({
           </Button>
         )}
       </Stack>
-    </>
+    </div>
   );
 };
 
@@ -291,7 +291,7 @@ const EditCard = () => {
     );
   }
   return (
-    <>
+    <div className={styles.authenticatedPageContainer}>
       <EmptySides
         cardId={card.id}
         front_of_card={card.front_of_card}
@@ -300,7 +300,7 @@ const EditCard = () => {
         onClickSaveAndAddCard={editCard}
         onClickDeleteCard={deleteCard}
       />
-    </>
+    </div>
   );
 };
 
@@ -316,13 +316,13 @@ const CreateCard = ({ flashcardApi }) => {
     window.location.href = "/";
   };
   return (
-    <>
+    <div className={styles.authenticatedPageContainer}>
       <EmptySides
         onClickSave={saveCardAndRedirect}
         onClickSaveAndAddCard={saveCard}
         onClickDeleteCard={deleteCard}
       />
-    </>
+    </div>
   );
 };
 
