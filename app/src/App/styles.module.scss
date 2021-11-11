@@ -18,7 +18,6 @@ body {
   flex-direction: column;
 }
 #contentWrap {
-  padding: 1rem calc((100vw - 1000px) / 6);
   flex-grow: 1;
 }
 .header {
@@ -29,6 +28,7 @@ body {
 }
 .authenticatedPageContainer {
   margin: 30px 30px;
+  padding: 0 calc((100vw - 1000px) / 6);
 }
 .greetingContainer {
   color: #04444f;

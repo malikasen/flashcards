@@ -23,7 +23,7 @@ const HeroSection = () => {
     setHover(!hover);
   };
   return (
-    <div>
+    <>
       <HeroContainer>
         <HeroBg>
           <VideoBg autoPlay loop muted src={Video} type="video/mp4" />
@@ -44,7 +44,7 @@ const HeroSection = () => {
           </HeroBtnWrapper>
         </HeroContent>
       </HeroContainer>
-    </div>
+    </>
   );
 };
 

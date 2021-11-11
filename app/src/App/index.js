@@ -124,7 +124,7 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
   }, [loading, loadFlashcards]);
   console.log("flashcards array", flashcards);
   return (
-    <div>
+    <>
       {!isAuthenticated && <HeroSection />}
       {isAuthenticated && !loading ? (
         <div className={styles.authenticatedPageContainer}>
@@ -137,7 +137,7 @@ const Home = ({ flashcards, loading, loadFlashcards }) => {
           <Flashcards flashcards={flashcards} loadFlashcards={loadFlashcards} />
         </div>
       ) : null}
-    </div>
+    </>
   );
 };
 
