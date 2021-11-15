@@ -207,7 +207,9 @@ const Practice = ({
       {!showFront && (
         <div>
           <div className={styles.clickInstructionsContainer}>
-            <p>Click on card, to see the front of the card</p>
+            <p className={styles.clickInstructions}>
+              Click on card, to see the front of the card
+            </p>
           </div>
           <Side
             text={cardsToPractice[cardNumber].back_of_card}
@@ -328,7 +330,7 @@ const CreateCard = ({ flashcardApi }) => {
 
 const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
   return (
-    <div>
+    <div className={styles.authenticatedPageContainer}>
       <p className={styles.resultCategories}>Not learned cards</p>
       <div className={styles.resultFlashcardContainer}>
         {cardsToPractice.map((flashcard) => {
