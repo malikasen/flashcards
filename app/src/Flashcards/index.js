@@ -40,8 +40,8 @@ const Flashcards = ({ flashcards, loadFlashcards }) => {
                 onChange={handleChange}
                 aria-label="lab API tabs example"
               >
-                <Tab label="Not Learnt Cards" {...a11yProps(0)} value="1" />
-                <Tab label="Learnt Cards" {...a11yProps(1)} value="2" />
+                <Tab label="Not Learned Cards" {...a11yProps(0)} value="1" />
+                <Tab label="Learned Cards" {...a11yProps(1)} value="2" />
               </TabList>
             </Box>
           </div>
