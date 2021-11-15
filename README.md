@@ -59,6 +59,7 @@ More details can be found in the
 
 ## Difficulties/Unsolved Problems
 - Limited timeframe was the major constraint, that did not let the developer build functionity beyond the MVP and improve the UI
+- It was challenging to mock API calls for testing, so the app has a limited amount of test for now
 
 
 ## Future Development

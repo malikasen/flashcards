@@ -242,7 +242,7 @@ const Practice = ({
           id={styles.masteredBtn}
           onClick={onClickMastered}
         >
-          Mark as Learnt
+          Mark as Learned
         </Button>
       </Stack>
       <Stack direction="row" className={styles.buttonStack}>
@@ -329,7 +329,7 @@ const CreateCard = ({ flashcardApi }) => {
 const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
   return (
     <div>
-      <p className={styles.resultCategories}>Not learnt cards</p>
+      <p className={styles.resultCategories}>Not learned cards</p>
       <div className={styles.resultFlashcardContainer}>
         {cardsToPractice.map((flashcard) => {
           return (
@@ -340,7 +340,7 @@ const Result = ({ cardsToPractice, flashcardApi, masteredCards }) => {
           );
         })}
       </div>
-      <p className={styles.resultCategories}>Learnt cards</p>
+      <p className={styles.resultCategories}>Learned cards</p>
       <div className={styles.resultFlashcardContainer}>
         {masteredCards.map((flashcard) => {
           return (

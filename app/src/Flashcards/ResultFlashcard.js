@@ -45,7 +45,7 @@ const ResultFlashcard = ({ flashcard, flashcardApi }) => {
                   id={styles.masteredBtn}
                   onClick={editIsLearnt}
                 >
-                  Mark as not learnt
+                  Mark as not learned
                 </Button>
               ) : (
                 <Button
@@ -54,7 +54,7 @@ const ResultFlashcard = ({ flashcard, flashcardApi }) => {
                   id={styles.practiceMoreBtn}
                   onClick={editIsLearnt}
                 >
-                  Mark as learnt
+                  Mark as learned
                 </Button>
               )}
             </div>

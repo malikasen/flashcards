@@ -44,6 +44,10 @@
   letter-spacing: 0.02857em;
   padding: 7px 21px;
   color: black;
+  @media screen and (max-width: 600px) {
+    min-height: 220px;
+    min-width: 400px;
+  }
 }
 .searchForm {
   display: flex;
@@ -72,6 +76,9 @@
   @media screen and (max-width: 768px) {
     margin-top: 10px;
   }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 .searchButton {
   border-radius: 4px;
@@ -92,6 +99,7 @@
     transition: all 0.2s ease-in-out;
     background: #fff;
     color: #010606;
+    border: 3px solid #1976d2;
   }
 
   @media screen and (max-width: 768px) {
