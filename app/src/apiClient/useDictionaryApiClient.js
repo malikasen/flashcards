@@ -5,7 +5,6 @@ import useAuth0 from "../auth/useAuth0";
 const makeApi = (accessToken) => {
   const actions = {
     getDefinition: (word) => {
-      console.log("word", word);
       return _get("/api/dictionary?word=" + word);
     },
   };

@@ -55,6 +55,7 @@ const Flashcards = ({ flashcards, loadFlashcards }) => {
                   <Flashcard
                     flashcard={flashcard}
                     loadFlashcards={loadFlashcards}
+                    key={flashcard.id}
                   />
                 );
               })}

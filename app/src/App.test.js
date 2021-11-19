@@ -27,10 +27,8 @@ jest.mock("@auth0/auth0-react", () => {
 
 describe("<App />", () => {
   beforeEach(() => {
-    console.log("inside before each");
     fetchMock.resetMocks();
     fetchMock.mockResponse((req) => {
-      console.log("req", req);
       if (req.url.endsWith("/api/flashcards")) {
         return Promise.resolve({
           body: JSON.stringify([
@@ -40,17 +38,19 @@ describe("<App />", () => {
               front_of_card: "hello i am the front",
               back_of_card: "hello i am the back",
             },
+            {
+              id: 2,
+              is_learnt: false,
+              front_of_card: "front",
+              back_of_card: "back",
+            },
           ]),
         });
       }
-      if (req.url === "/api/users") {
-        return Promise.resolve({ body: JSON.stringify([]) });
+      if (req.url.endsWith("/api/users")) {
+        return Promise.resolve({ body: JSON.stringify({}) });
       }
     });
-  });
-  it("App renders NavLink with text 'New Card'", () => {
-    const { queryAllByText } = render(<App />);
-    expect(queryAllByText(/New Card/i).length).toBeGreaterThan(0);
   });
   it("App renders a greeting message in the home page", async () => {
     const { getByText } = render(<App />);
@@ -59,22 +59,11 @@ describe("<App />", () => {
     });
     expect(helloFirst).toBeTruthy();
   });
-  // it("The greeting message in the home page includes the number of loaded cards", async () => {
-  //   console.log("process.env", process.env.NODE_ENV);
-  //   const { getByText } = render(<App />);
-  //   const string = await waitFor(() => {
-  //     return getByText(/You have 1 cards in your collection./i);
-  //   });
-  //   expect(string).toBeTruthy();
-  // });
+  it("The greeting message in the home page includes the number of loaded cards", async () => {
+    const { getByText } = render(<App />);
+    const string = await waitFor(() => {
+      return getByText(/You have 2 cards in your collection./i);
+    });
+    expect(string).toBeTruthy();
+  });
 });
-
-// describe("App", () => {
-//   test("delete button redirect to home page", async () => {
-//     render(<App />);
-//     await waitFor(() => {
-//       return screen.getByText("Mark as learnt");
-//     });
-//     // const editButton =
-//   });
-// });

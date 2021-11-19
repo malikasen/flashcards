@@ -72,8 +72,6 @@ const makeApi = (accessToken) => {
   const _fetch = (url, options) => {
     const updatedUrl =
       process.env.NODE_ENV === "test" ? `http://test.com${url}` : url;
-    console.log("updated url", updatedUrl);
-    console.log("options", options);
     return fetch(updatedUrl, {
       ...options,
       headers: {
@@ -94,7 +92,6 @@ const useFlashcardApiClient = () => {
   });
 
   React.useEffect(() => {
-    console.log("isAuthenticated", isAuthenticated);
     if (isAuthenticated) {
       (async () => {
         try {

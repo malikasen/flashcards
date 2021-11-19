@@ -5,3 +5,4 @@
 import "@testing-library/jest-dom";
 //setupJest.js or similar file
 window.crypto = { subtle: {} };
+require("jest-fetch-mock").enableMocks();
